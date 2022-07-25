@@ -2,9 +2,10 @@
 
 S3method(print,nimbleUI)
 S3method(summary,nimbleUI)
-export(getMLE)
+export(get_MLE)
 export(nimbleUI)
-export(tmbSummary)
+export(nimble_summary)
+export(tmb_summary)
 export(traceplot)
 importFrom(TMB,sdreport)
 importFrom(TMB,summary.sdreport)

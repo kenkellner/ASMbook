@@ -6,7 +6,7 @@
 #' @return Nothing; called for its side effects.
 #'
 #' @export
-getMLE <- function(opt, dig = 3){
+get_MLE <- function(opt, dig = 3){
   MLE <- opt$par
   ASE <- rep(NA, length(MLE))
   if(!is.null(opt$hessian)){

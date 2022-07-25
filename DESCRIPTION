@@ -1,6 +1,6 @@
 Package: ISMbook
-Version: 0.1.1
-Date: 2021-02-02
+Version: 0.1.2
+Date: 2022-07-25
 Title: Functions for the Book 'Introduction to Statistical Modeling for Ecologists'
 Authors@R: person("Ken", "Kellner", email="contact@kenkellner.com", 
                   role=c("cre","aut"))
@@ -17,4 +17,4 @@ Description: Provides functions to accompany the publication 'Introduction to St
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
