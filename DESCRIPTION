@@ -1,7 +1,7 @@
-Package: ISMbook
-Version: 0.1.2
-Date: 2022-07-25
-Title: Functions for the Book 'Introduction to Statistical Modeling for Ecologists'
+Package: ASMbook
+Version: 0.1.3
+Date: 2023-05-18
+Title: Functions for the Book 'Applied Statistical Modeling for Ecologists'
 Authors@R: person("Ken", "Kellner", email="contact@kenkellner.com", 
                   role=c("cre","aut"))
 Depends: 

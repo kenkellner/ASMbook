@@ -2,6 +2,7 @@
 
 S3method(print,nimbleUI)
 S3method(summary,nimbleUI)
+export(getMLE)
 export(get_MLE)
 export(nimbleUI)
 export(nimble_summary)

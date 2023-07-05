@@ -5,13 +5,23 @@
 #'
 #' @return Nothing; called for its side effects.
 #'
+#' @name get_MLE
 #' @export
 get_MLE <- function(opt, dig = 3){
   MLE <- opt$par
-  ASE <- rep(NA, length(MLE))
+  ASE <- lower <- upper <- rep(NA, length(MLE))
   if(!is.null(opt$hessian)){
     VC <- solve(opt$hessian)
     ASE <- sqrt(diag(VC))
+    z <- qnorm(0.025, lower.tail=FALSE)
+    lower <- MLE - z*ASE
+    upper <- MLE + z*ASE
   }
-  print(cbind(MLE, ASE), dig)
+  out <- cbind(MLE, ASE, LCL.95=lower, UCL.95=upper)
+  print(out, dig)
+  out
 }
+
+#' @rdname get_MLE
+#' @export
+getMLE <- get_MLE
