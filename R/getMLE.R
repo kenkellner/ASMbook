@@ -19,7 +19,7 @@ getMLE <- function(opt, dig = 3){
   }
   out <- cbind(MLE, ASE, LCL.95=lower, UCL.95=upper)
   print(out, dig)
-  out
+  invisible(out)
 }
 
 #' @rdname getMLE
