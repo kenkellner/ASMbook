@@ -13,7 +13,7 @@ getMLE <- function(opt, dig = 3){
   if(!is.null(opt$hessian)){
     VC <- solve(opt$hessian)
     ASE <- sqrt(diag(VC))
-    z <- qnorm(0.025, lower.tail=FALSE)
+    z <- stats::qnorm(0.025, lower.tail=FALSE)
     lower <- MLE - z*ASE
     upper <- MLE + z*ASE
   }

@@ -8,11 +8,10 @@ Authors@R: c(
 Depends: R (>= 3.4.0)
 Imports:
     coda,
-    parallel,
     stats,
     TMB
 Suggests: roxygen2
-Description: Provides functions to accompany the publication 'Introduction to Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner.
+Description: Provides functions to accompany the publication 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner.
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8

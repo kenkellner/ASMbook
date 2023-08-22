@@ -21,7 +21,7 @@ tmbSummary <- function(tmbObject, dig=NULL){
   pnames <- paste0(pnames, idx)
   pnames[1:npar] <- pnames_fixed
   rownames(out) <- pnames
-  z <- qnorm(0.025, lower.tail=FALSE)
+  z <- stats::qnorm(0.025, lower.tail=FALSE)
   lower <- out[,"Estimate"] - z*out[,"Std. Error"]
   upper <- out[,"Estimate"] + z*out[,"Std. Error"]
   out <- cbind(out, LCL.95=lower, UCL.95=upper)

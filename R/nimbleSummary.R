@@ -1,6 +1,6 @@
 #' Summarize MCMC Samples in an mcmc.list Object Created by NIMBLE
 #'
-#' @param object An object of class \code{mcmc.list}
+#' @param samples An object of class \code{mcmc.list}
 #' @param params An optional list of the parameter names used to sort the output
 #'
 #' @return A data frame of summary information for each saved parameter

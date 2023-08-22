@@ -10,9 +10,9 @@ nimbleSummary(samples, params = NULL)
 nimble_summary(samples, params = NULL)
 }
 \arguments{
-\item{params}{An optional list of the parameter names used to sort the output}
+\item{samples}{An object of class \code{mcmc.list}}
 
-\item{object}{An object of class \code{mcmc.list}}
+\item{params}{An optional list of the parameter names used to sort the output}
 }
 \value{
 A data frame of summary information for each saved parameter
