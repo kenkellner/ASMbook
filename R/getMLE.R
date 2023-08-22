@@ -3,11 +3,11 @@
 #' @param opt Object resulting from a call to \code{optim}
 #' @param dig Number of decimal places to use when printing
 #'
-#' @return Nothing; called for its side effects.
+#' @return A matrix of parameter estimates, standard errors, and 95% CI.
 #'
-#' @name get_MLE
+#' @name getMLE
 #' @export
-get_MLE <- function(opt, dig = 3){
+getMLE <- function(opt, dig = 3){
   MLE <- opt$par
   ASE <- lower <- upper <- rep(NA, length(MLE))
   if(!is.null(opt$hessian)){
@@ -22,6 +22,6 @@ get_MLE <- function(opt, dig = 3){
   out
 }
 
-#' @rdname get_MLE
+#' @rdname getMLE
 #' @export
-getMLE <- get_MLE
+get_MLE <- getMLE

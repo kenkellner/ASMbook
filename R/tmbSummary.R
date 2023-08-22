@@ -1,6 +1,6 @@
 #' Summarize Output from TMB
 #'
-#' @param tmb_object A TMB object created by \code{MakeADFun} that has
+#' @param tmbObject A TMB object created by \code{MakeADFun} that has
 #'  been optimized (e.g. with \code{optim})
 #' @param dig Number of decimal places to use in output
 #'
@@ -8,10 +8,10 @@
 #'
 #' @importFrom TMB sdreport summary.sdreport
 #' @export
-tmb_summary <- function(tmb_object, dig=NULL){
-  npar <- length(tmb_object$par)
-  pnames_fixed <- names(tmb_object$par)
-  out <- summary(sdreport(tmb_object))
+tmbSummary <- function(tmbObject, dig=NULL){
+  npar <- length(tmbObject$par)
+  pnames_fixed <- names(tmbObject$par)
+  out <- summary(sdreport(tmbObject))
   pnames <- rownames(out)
   pcount <- sapply(unique(pnames), function(x) sum(pnames==x))
   idx <- unlist(sapply(pcount, function(i){
@@ -21,6 +21,14 @@ tmb_summary <- function(tmb_object, dig=NULL){
   pnames <- paste0(pnames, idx)
   pnames[1:npar] <- pnames_fixed
   rownames(out) <- pnames
+  z <- qnorm(0.025, lower.tail=FALSE)
+  lower <- out[,"Estimate"] - z*out[,"Std. Error"]
+  upper <- out[,"Estimate"] + z*out[,"Std. Error"]
+  out <- cbind(out, LCL.95=lower, UCL.95=upper)
   if(!is.null(dig)) out <- round(out, dig)
   out
 }
+
+#' @rdname tmbSummary
+#' @export
+tmb_summary <- tmbSummary

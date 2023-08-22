@@ -17,4 +17,4 @@ Description: Provides functions to accompany the publication 'Introduction to St
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.2
