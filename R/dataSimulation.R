@@ -209,10 +209,8 @@ simDat72 <- function(nPops = 5, nSample = 10, pop.means = c(50, 40, 45, 55, 60),
   means <- rep(pop.means, rep(nSample, nPops))
   X <- as.matrix(model.matrix(~ pop-1))      # Create design matrix
   y <- as.numeric(X %*% as.matrix(pop.means) + eps) # %*% denotes matrix multiplication
-  oldpar <- par()
   par(mar = c(6,6,6,3), cex.lab = 1.5, cex.axis = 1.5, cex.main = 2)
   boxplot(y ~ pop, col = "grey", xlab = "Population", ylab = "SVL", main = "", las = 1, frame = FALSE)
-  par(oldpar)
   return(list(nPops = nPops, nSample = nSample, pop.means = pop.means, sigma = sigma, 
     pop = pop, eps = eps, y = y))
 }
@@ -261,11 +259,9 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
   eps <- rnorm(n, 0, sigma)                  # Residuals 
   X <- as.matrix(model.matrix(~ pop-1))      # Create design matrix
   y <- as.numeric(X %*% as.matrix(pop.means) + eps) # %*% denotes matrix multiplication
-  oldpar <- par()
   par(mar = c(6,6,6,3), cex.lab = 1.5, cex.axis = 1.5, cex.main = 2)
   boxplot(y ~ pop, col = "grey", xlab = "Population", ylab = "SVL", main = "", las = 1, frame = FALSE)
   abline(h = pop.grand.mean)
-  par(oldpar)
   return(list(nPops = nPops, nSample = nSample, pop.grand.mean = pop.grand.mean,
     pop.sd = pop.sd, sigma = sigma, pop = pop, pop.means = pop.means, eps = eps, y = y))
 }
@@ -397,13 +393,11 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
   lengthC <- length-mean(length) # Same centered
   Xmat <- model.matrix(~ pop * lengthC)
   mass <- as.numeric(Xmat[,] %*% beta.vec + rnorm(n = n, mean = 0, sd = sigma))
-  oldpar <- par()
   par(mar = c(5,5,4,2), cex.lab = 1.5, cex.axis = 1.5)
   matplot(cbind(length[1:nSample], length[(nSample+1):(2*nSample)], length[(2*nSample+1):(3*nSample)]),
     cbind(mass[1:nSample], mass[(nSample+1):(2*nSample)], mass[(2*nSample+1):(3*nSample)]),
     ylim = c(0, max(mass)), ylab = "Body mass (g)", xlab = "Body length (cm)", 
 	col = c("Red","Green","Blue"), pch = c("P", "M", "J"), las = 1, cex = 1.6, cex.lab = 1.5, frame = FALSE)
-  par(oldpar)
   return(list(nPops = nPops, nSample = nSample, beta.vec = beta.vec, sigma = sigma, x = x, pop = pop,
     lengthC = lengthC, mass = mass))
 }
@@ -618,4 +612,701 @@ simDat105 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
   return(list(nPops = nPops, nSample = nSample, mu.alpha = mu.alpha, sigma.alpha = sigma.alpha, 
     mu.beta = mu.beta, sigma.beta = sigma.beta, cov.alpha.beta = cov.alpha.beta, sigma = sigma,
 	pop = pop, orig.length = orig.length, lengthN = lengthN, ranef.matrix = ranef.matrix, eps = eps, mass = mass))
+}
+
+
+#' Simulate data for Chapter 11: Comparing two groups of Poisson counts
+#'
+#' Generate counts of hares in two areas with different landuse
+#'
+#' @param nSites Number of sites
+#' @param alpha Intercept
+#' @param beta Slope for land use
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nSites}{Number of sites}
+#'   \item{alpha}{Intercept}
+#'   \item{beta}{Slope for land use}
+#'   \item{y}{Simulated hare counts}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat11())      # Implicit default arguments
+#'
+#' # Revert to "Poisson model-of-the-mean" 
+#' # (Increase sample size to reduce sampling variability)
+#' str(dat <- simDat11(nSites = 1000, beta = 0)) 
+#'
+#' @importFrom graphics boxplot
+#' @importFrom stats rpois
+#' @export
+simDat11 <- function(nSites = 30, alpha = log(2), beta = log(5)-log(2)){
+  x <- gl(n = 2, k = nSites, labels = c("grassland", "arable"))
+  n <- 2 * nSites
+  lambda <- exp(alpha + beta*(as.numeric(x)-1)) 
+  y <- rpois(n = n, lambda = lambda)
+  y[c(1, 10, 35)] <- NA            # Turn some observations into NAs
+  boxplot(y ~ x, col = "grey", xlab = "Land-use", ylab = "Hare count", las = 1, frame = FALSE)
+  return(list(nSites = nSites, alpha = alpha, beta = beta, y = y))
+}
+
+
+#' Simulate data for Chapter 12.2: Overdispersed counts
+#'
+#' Generate counts of hares in two landuse types
+#' when there may be overdispersion relative to a Poisson
+#'
+#' @param nSites Number of sites
+#' @param alpha Intercept
+#' @param beta Slope for land use
+#' @param sd Standard deviation for overdispersion
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nSites}{Number of sites}
+#'   \item{alpha}{Intercept}
+#'   \item{beta}{Slope for land use}
+#'   \item{sd}{Standard deviation for overdispersion}
+#'   \item{C_OD}{Simulated hare counts with overdispersion}
+#'   \item{C_Poisson}{Simulated hare counts without overdispersion}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat122())      # Implicit default arguments
+#' 
+#' # Much greater OD to emphasize patterns (also larger sample size)
+#' str(dat <- simDat122(nSites = 100, sd = 1))
+#' 
+#' # Revert to "Poisson model-of-the-mean" (i.e., without an effect of landuse type)
+#' str(dat <- simDat122(nSites = 100, beta = 0, sd = 1))
+#'
+#' @importFrom graphics boxplot par
+#' @importFrom stats rnorm rpois
+#' @export
+simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.5){
+  x <- gl(n = 2, k = nSites, labels = c("grassland", "arable"))
+  n <- 2 * nSites
+  eps <- rnorm(2*nSites, mean = 0, sd = sd)     # Normal random effect to create overdispersion
+  lambda.OD <- exp(alpha + beta*(as.numeric(x)-1) + eps)
+  lambda.Poisson <- exp(alpha + beta*(as.numeric(x)-1))
+  C_OD <- rpois(n = n, lambda = lambda.OD)           # Counts with OD
+  C_Poisson <- rpois(n = n, lambda = lambda.Poisson) # Counts without OD
+  par(mfrow = c(1,2))
+  boxplot(C_OD ~ x, col = "grey", xlab = "Land-use", main = "With overdispersion", ylab = "Hare count", las = 1, ylim = c(0, max(C_OD)), frame = FALSE)
+  boxplot(C_Poisson ~ x, col = "grey", xlab = "Land-use", main = "Without overdispersion", ylab = "Hare count", las = 1, ylim = c(0, max(C_OD)) , frame = FALSE )
+  return(list(nSites = nSites, alpha = alpha, beta = beta, sd = sd, 
+    C_OD = C_OD, C_Poisson = C_Poisson))
+}
+
+
+#' Simulate data for Chapter 12.3: Zero-inflated counts
+#'
+#' Generate counts of hares in two landuse types when there may be 
+#' zero-inflation (this is a simple general hierarchical model, see Chap 19 in the book)
+#'
+#' @param nSites Number of sites
+#' @param alpha Intercept
+#' @param beta Slope for land use
+#' @param psi Zero inflation parameter (probability of structural 0)
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nSites}{Number of sites}
+#'   \item{alpha}{Intercept}
+#'   \item{beta}{Slope for land use}
+#'   \item{psi}{Zero inflation parameter}
+#'   \item{w}{Indicator that count is not a structural 0}
+#'   \item{C}{Simulated hare counts with zero inflation}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat123())      # Implicit default arguments
+#' 
+#' # Drop zero inflation (and make sample sizes bigger)
+#' str(dat <- simDat123(nSites = 1000, psi = 0))     # Note 0 % of the sites have structural zeroes now
+#'
+#' # Drop zero inflation (and make sample sizes bigger)
+#' # Half of all sites have structural zeroes
+#' str(dat <- simDat123(nSites = 1000, psi = 0.5))
+#'
+#' # Revert to "model-of-the-mean" without zero inflation
+#' # 0 % of the sites have structural zeroes
+#' str(dat <- simDat123(nSites = 1000, beta = 0, psi = 0))
+#'
+#' # Revert to "model-of-the-mean" with zero inflation
+#' # 50 % of the sites have structural zeroes
+#' str(dat <- simDat123(nSites = 1000, beta = 0, psi = 0.5))
+#'
+#' @importFrom graphics boxplot
+#' @importFrom stats rpois rbinom
+#' @export
+simDat123 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), psi = 0.2){
+  x <- gl(n = 2, k = nSites, labels = c("grassland", "arable"))
+  n <- 2 * nSites
+  w <- rbinom(n = 2 * nSites, size = 1, prob = 1 - psi)
+  lambda <- exp(alpha + beta*(as.numeric(x)-1)) 
+  C <- rpois(n = n, lambda = w*lambda)           # Counts with some zero-inflation
+  boxplot(C ~ x, col = "grey", xlab = "Land-use", ylab = "Hare count", las = 1, frame = FALSE)
+  return(list(nSites = nSites, alpha = alpha, beta = beta, psi = psi, w = w, C = C))
+}
+
+
+#' Simulate data for Chapter 12.4: Counts with offsets
+#'
+#' Generate counts of hares in two landuse types 
+#' when study area size A varies and is used as an offset
+#'
+#' @param nSites Number of sites
+#' @param alpha Intercept
+#' @param beta Slope for land use
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nSites}{Number of sites}
+#'   \item{alpha}{Intercept}
+#'   \item{beta}{Slope for land use}
+#'   \item{A}{Site areas}
+#'   \item{C}{Simulated hare counts}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat124())      # Implicit default arguments
+#' str(dat <- simDat124(nSites = 1000, beta = 0)) # "Model-of-the-mean" without effect of landuse
+#' str(dat <- simDat124(nSites = 100, alpha = log(2), beta = -2)) # Grassland better than arable
+#'
+#' @importFrom graphics boxplot
+#' @importFrom stats rpois
+#' @export
+simDat124 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2)){
+  # Generate counts of hares in two landuse types 
+  #   when study area size A varies and is used as an offset
+  A <- runif(n = 2 * nSites, 2, 5) # Areas range in size from 2 to 5 km2
+  x <- gl(n = 2, k = nSites, labels = c("grassland", "arable"))
+  lambda <- A * exp(alpha + beta*(as.numeric(x)-1)) 
+  C <- rpois(n = 2 * nSites, lambda = lambda)
+  boxplot(C ~ x, col = "grey", xlab = "Land-use", ylab = "Hare count", las = 1, frame = FALSE)
+  return(list(nSites = nSites, alpha = alpha, beta = beta, A = A, C = C))
+}
+
+
+#' Simulate data for Chapter 13: Poisson ANCOVA
+#'
+#' Simulate parasite load ~ size regressions in 3 populations of goldenring dragonflies
+#'
+#' @param nPops Number of populations
+#' @param nSample Number of samples per population
+#' @param beta.vec Vector of regression coefficients
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nPops}{Number of populations}
+#'   \item{nSample}{Number of samples per population}
+#'   \item{beta}{Vector of regression coefficients}
+#'   \item{x}{Indicator for population number}
+#'   \item{pop}{Population name (factor)}
+#'   \item{orig.length}{Wing length, non-centered}
+#'   \item{wing.length}{Wing length, centered}
+#'   \item{load}{Simulated parasite loads}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat13())      # Implicit default arguments
+#'
+#' # Revert to main-effects model with parallel lines on the log link scale
+#' str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 1, 2, 4, 0, 0)))
+#'
+#' # Same with less strong regression coefficient
+#' str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 1, 2, 3, 0, 0)))
+#'
+#' # Revert to simple linear Poisson regression: no effect of population (and less strong coefficient)
+#' str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 0, 0, 3, 0, 0)))
+#'
+#' # Revert to one-way ANOVA Poisson model: no effect of wing length
+#' # (Choose larger sample size and greater differences in the intercepts to better show patterns)
+#' str(dat <- simDat13(nSample = 100, beta.vec = c(-1, 3, 5, 0, 0, 0)))
+#'
+#' # Revert to Poisson "model-of-the-mean": no effects of either wing length or population
+#' # Intercept chosen such that average parasite load is 10
+#' str(dat <- simDat13(nSample = 100, beta.vec = c(log(10), 0, 0, 0, 0, 0)))
+#' mean(dat$load)        # Average is about 10
+#'
+#' @importFrom graphics par
+#' @importFrom stats model.matrix runif rpois
+#' @export
+simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)){
+  n <- nPops * nSample
+  x <- rep(1:nPops, rep(nSample, nPops))
+  pop <- factor(x, labels = c("Pyrenees", "Massif Central", "Jura"))
+  orig.length <- runif(n, 4.5, 7.0)      # Wing length (cm)
+  wing.length <- orig.length - mean(orig.length) # Center wing length
+  Xmat <- model.matrix(~ pop * wing.length)
+  lin.pred <- Xmat[,] %*% beta.vec
+  lambda <- exp(lin.pred)
+  load <- rpois(n = n, lambda = lambda)
+  par(mar = c(5,5,4,3), cex.axis = 1.5, cex.lab = 1.5)
+  plot(wing.length, load, pch = rep(c("P", "M", "J"), each=nSample), las = 1,
+    col = rep(c("Red", "Green", "Blue"), each=nSample), ylab = "Parasite load",
+	xlab = "Wing length", cex = 1.2, frame = FALSE) # Crashes unless exactly 3 populations
+  return(list(nPops = nPops, nSample = nSample, beta.vec = beta.vec, x = x, pop = pop,
+    orig.length = orig.length, wing.length = wing.length, load = load))
+}
+
+
+#' Simulate data for Chapter 14: Poisson GLMM
+#'
+#' Simulate count ~ year regressions in 16 populations of red-backed shrikes
+#'
+#' @param nPops Number of populations
+#' @param nYears Number of years sampled in each population
+#' @param mu.alpha Mean of random intercepts
+#' @param sigma.alpha SD of random intercepts
+#' @param mu.beta Mean of random slopes
+#' @param sigma.beta SD of random slopes
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nPops}{Number of populations}
+#'   \item{nYears}{Number of years sampled}
+#'   \item{mu.alpha}{Mean of random intercepts}
+#'   \item{sigma.alpha}{SD of random intercepts}
+#'   \item{mu.beta}{Mean of random slopes}
+#'   \item{sigma.beta}{SD of random slopes}
+#'   \item{pop}{Population index}
+#'   \item{orig.year}{Year values, non-scaled}
+#'   \item{year}{Year values, scaled to be between 0 and 1}
+#'   \item{alpha}{Random intercepts}
+#'   \item{beta}{Random slopes}
+#'   \item{C}{Simulated shrike counts}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' library(lattice)
+#' str(dat <- simDat14())
+#' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year", pch = 16,
+#' cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#' main = 'Realized population trends\n(random-coefficients model)') # works
+#'
+#' # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
+#' str(dat <- simDat14(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
+#' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
+#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#' main = 'Realized population trends (random-intercepts model)')
+#'
+#' # Revert to random-effects one-way Poisson ANOVA model: random intercepts, but zero slopes
+#' str(dat <- simDat14(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
+#' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
+#'  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#' main = 'Realized population trends\n(random-effects, one-way Poisson ANOVA model)')
+#'
+#' # Revert to simple log-linear Poisson regression (= no effects of pop on either intercepts or slopes)
+#' str(dat <- simDat14(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
+#' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
+#' xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#' main = 'Realized population trends\n(simple log-linear Poisson regression)')
+#'
+#' # Revert to Poisson "model-of-the-mean": no effects of either population or body length
+#' str(dat <- simDat14(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
+#' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
+#' xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#' main = 'Realized population trends\n(Poisson "model-of-the-mean")')
+#'
+#' @importFrom lattice xyplot
+#' @importFrom grDevices rgb
+#' @importFrom stats model.matrix rnorm rpois
+#' @export
+simDat14 <- function(nPops = 16, nYears = 30, mu.alpha = 3, sigma.alpha = 1, mu.beta = -2, sigma.beta = 0.6){
+  n <- nPops * nYears
+  pop <- gl(n = nPops, k = nYears)
+  orig.year <- rep(1:nYears, nPops)
+  year <- (orig.year-1) / (nYears-1) # Scale year such that squeezed between 0 and 1
+  Xmat <- model.matrix(~ pop * year - 1 - year)
+  alpha <- rnorm(n = nPops, mean = mu.alpha, sd = sigma.alpha)
+  beta <- rnorm(n = nPops, mean = mu.beta, sd = sigma.beta)
+  all.effects <- c(alpha, beta) # All together
+  lin.pred <- Xmat[,] %*% all.effects
+  C <- rpois(n = n, lambda = exp(lin.pred))
+  xyplot(C ~ orig.year | pop, ylab = "Red-backed shrike counts", xlab = "Year",
+    pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))  #### %%%% DOES NOT PRODUCE PLOTS FOR SOME REASON
+  return(list(nPops = nPops, nYears = nYears, mu.alpha = mu.alpha, sigma.alpha = sigma.alpha, 
+    mu.beta = mu.beta, sigma.beta = sigma.beta, pop = pop, orig.year = orig.year, 
+	year = year, alpha = alpha, beta = beta, C = C))
+}
+
+
+#' Simulate data for Chapter 15: Comparing two groups of binomial counts
+#'
+#' Generate presence/absence data for two gentian species (Bernoulli variant)
+#'
+#' @param N Number of sites
+#' @param theta.cr Probability of presence for cross-leaved gentian
+#' @param theta.ch Probability of presence for chiltern gentian
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{N}{Number of sites}
+#'   \item{theta.cr}{Probability for cross-leaved gentian}
+#'   \item{theta.ch}{Probability for chiltern gentian}
+#'   \item{y}{Simulated presence/absence data}
+#'   \item{species.long}{Species indicator (longform), 1 = chiltern}
+#'   \item{C}{Aggregated presence/absence data}
+#'   \item{species}{Species indicator for aggregated data}
+#'   \item{chiltern}{Effect of chiltern (difference in species intercepts)}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat15())      # Implicit default arguments
+#'
+#' # Revert to "Binomial model-of-the-mean"
+#' # (Increase sample size to reduce sampling variability)
+#' str(dat <- simDat15(N = 100, theta.cr = 40/100, theta.ch = 40/100)) 
+#'
+#' @importFrom graphics axis
+#' @importFrom stats rbinom
+#' @export
+simDat15 <- function(N = 50, theta.cr = 12/50, theta.ch = 38/50){
+  # Generate presence/absence data for two gentian species (Bernoulli variant)
+  y.cr <- rbinom(N, 1, prob = theta.cr)  ;  y.cr  # Det/nondet data for cross-leaved
+  y.ch <- rbinom(N, 1, prob = theta.ch)  ;  y.ch  # ditto for chiltern
+  y <- c(y.cr, y.ch)     # Merge the two binary vectors
+  species.long <- factor(rep(c(0,1), each = N), labels = c("Cross-leaved", "Chiltern"))
+  # Aggregate the binary data to become two binomial counts
+  C <- c(sum(y.cr), sum(y.ch))     # Tally up detections
+  species <- factor(c(0,1), labels = c("Cross-leaved", "Chiltern"))
+  plot(C ~ as.numeric(species), xlim = c(0.8, 2.2), ylim = c(0, N), type = 'h', lend = 'butt',
+    lwd = 50, col = 'gray30', axes = FALSE, xlab = 'Species of Gentian')
+  axis(1, at = c(1, 2), labels = c("Cross-leaved", "Chiltern"))
+  axis(2)
+  Intercept <- log(theta.cr/(1-theta.cr))
+  chiltern <- (log(theta.ch/(1-theta.ch)) - log(theta.cr/(1-theta.cr)))
+  return(list(N = N, theta.cr = theta.cr, theta.ch = theta.ch, y = y, species.long = species.long,
+    C = C, species = species, Intercept = Intercept, chiltern = chiltern))
+}
+
+
+#' Simulate data for Chapter 16: Binomial ANCOVA
+#'
+#' Simulate Number black individuals ~ wetness regressions in adders in 3 regions
+#'
+#' @param nRegion Number of regions
+#' @param nSite Number of sites per region
+#' @param beta.vec Vector of regression coefficients
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nRegion}{Number of regions}
+#'   \item{nSite}{Number of sites per region}
+#'   \item{beta}{Vector of regression coefficients}
+#'   \item{x}{Indicator for region number}
+#'   \item{region}{Region name (factor)}
+#'   \item{wetness}{Wetness covariate}
+#'   \item{N}{Number of adders captured at each site}
+#'   \item{C}{Number of black adders captured at each site}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat16())      # Implicit default arguments
+#'
+#' # Revert to main-effects model with parallel lines on the logit link scale
+#' # (also larger sample size to better see patterns)
+#' str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 6, 0, 0)))
+#'
+#' # Same with less strong logistic regression coefficient
+#' str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 3, 0, 0)))
+#'
+#' # Revert to simple logit-linear binomial regression: no effect of population (and less strong coefficient)
+#' str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 0, 0, 3, 0, 0)))
+#'
+#' # Revert to one-way ANOVA binomial model: no effect of wetness
+#' # (Choose greater differences in the intercepts to better show patterns)
+#' str(dat <- simDat16(nSite = 100, beta.vec = c(-2, 2, 3, 0, 0, 0)))
+#'
+#' # Revert to binomial "model-of-the-mean": no effects of either wetness or population
+#' # Intercept chosen such that average proportion of black adders is 0.6
+#' str(dat <- simDat16(nSite = 100, beta.vec = c(qlogis(0.6), 0, 0, 0, 0, 0)))
+#' mean(dat$C / dat$N)        # Average is about 0.6
+#'
+#' @importFrom graphics par matplot
+#' @importFrom stats model.matrix runif rbinom
+#' @export
+simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
+  n <- nRegion * nSite
+  x <- rep(1:nRegion, rep(nSite, nRegion))
+  region <- factor(x, labels = c("Jura", "Black Forest", "Alps"))
+  wetness.Jura <- sort(runif(nSite, 0, 1))
+  wetness.BlackF <- sort(runif(nSite, 0, 1))
+  wetness.Alps <- sort(runif(nSite, 0, 1))
+  wetness <- c(wetness.Jura, wetness.BlackF, wetness.Alps)
+  N <- round(runif(n, 10, 50) )    # Get discrete uniform values for number captured,N
+  Xmat <- model.matrix(~ region * wetness)
+  lin.pred <- Xmat[,] %*% beta.vec
+  exp.p <- exp(lin.pred) / (1 + exp(lin.pred)) # plogis(lin.pred) is same
+  C <- rbinom(n = n, size = N, prob = exp.p)
+  par(mfrow = c(1,2), mar = c(5,5,3,1))
+  matplot(cbind(wetness[1:nSite], wetness[(nSite+1):(2*nSite)], wetness[(2*nSite+1):(3*nSite)]),
+    cbind(exp.p[1:nSite], exp.p[(nSite+1):(2*nSite)], exp.p[(2*nSite+1):(3*nSite)]),
+	ylab = "Expected proportion black", xlab = "Wetness index", col = c("red","green","blue"),
+	pch = c("J","B","A"), lty = "solid", type = "b", las = 1, cex = 1.2, main = "Expected proportion",
+	lwd = 2, frame = FALSE)
+  matplot(cbind(wetness[1:nSite], wetness[(nSite+1):(2*nSite)], wetness[(2*nSite+1):(3*nSite)]),
+    cbind(C[1:nSite]/N[1:nSite], C[(nSite+1):(2*nSite)]/N[(nSite+1):(2*nSite)], C[(2*nSite+1):(3*nSite)]/N[(2*nSite+1):(3*nSite)]), ylab = "Observed proportion black", xlab = "Wetness index",
+	col = c("red","green","blue"), pch = c("J","B","A"), las = 1, cex = 1.2, main = "Realized proportion",
+	frame = FALSE)
+  return(list(nRegion = nRegion, nSite = nSite, beta.vec = beta.vec, x = x, region = region, 
+    wetness = wetness, N = N, C = C))
+}
+
+
+#' Simulate data for Chapter 17: Binomial GLMM
+#'
+#' Simulate Number of successful pairs ~ precipitation regressions in 16 populations of woodchat shrikes
+#'
+#' @param nPops Number of populations
+#' @param nYears Number of years sampled in each population
+#' @param mu.alpha Mean of random intercepts
+#' @param sigma.alpha SD of random intercepts
+#' @param mu.beta Mean of random slopes
+#' @param sigma.beta SD of random slopes
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nPops}{Number of populations}
+#'   \item{nYears}{Number of years sampled}
+#'   \item{mu.alpha}{Mean of random intercepts}
+#'   \item{sigma.alpha}{SD of random intercepts}
+#'   \item{mu.beta}{Mean of random slopes}
+#'   \item{sigma.beta}{SD of random slopes}
+#'   \item{pop}{Population index}
+#'   \item{precip}{Precipitation covariate values}
+#'   \item{alpha}{Random intercepts}
+#'   \item{beta}{Random slopes}
+#'   \item{N}{Number of shrike pairs at each site}
+#'   \item{C}{Number of successful shrike pairs at each site}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' library(lattice)
+#' str(dat <- simDat17())      # Implicit default arguments (DOES NOT PRODUCE PLOT FOR SOME REASON)
+#' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
+#'    xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
+#'	col = rgb(0, 0, 0, 0.4))
+#'
+#' # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
+#' str(dat <- simDat17(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
+#' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
+#'    xlab = "Spring precipitation index", main = "Realized breeding success (random-intercepts model)",
+#'	pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'
+#' # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
+#' str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
+#' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
+#'     xlab = "Spring precipitation index",
+#' main = "Realized breeding success (random-effects,\none-way binomial ANOVA model)", 
+#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'
+#' # Revert to simple log-linear binomial (i.e., logistic) regression
+#' #   (= no effects of pop on either intercepts or slopes)
+#' str(dat <- simDat17(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
+#' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
+#'    xlab = "Spring precipitation index", 
+#' main = "Realized breeding success\n(simple logistic regression model)", 
+#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'
+#' # Revert to binomial "model-of-the-mean": no effects of either population or precipitation
+#' str(dat <- simDat17(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
+#' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
+#'  xlab = "Spring precipitation index", 
+#'  main = "Realized breeding success (binomial 'model-of-the-mean')",
+#'	pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'
+#' @importFrom lattice xyplot
+#' @importFrom grDevices rgb
+#' @importFrom stats model.matrix rnorm rbinom runif
+#' @export
+simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.alpha = 1, sigma.beta = 1){
+  n <- nPops * nYears
+  pop <- gl(n = nPops, k = nYears)
+  precip <- runif(n, -1, 1)
+  N <- round(runif(n, 20, 50) )    # Choose number of studied pairs
+  Xmat <- model.matrix(~ pop * precip - 1 - precip)
+  alpha <- rnorm(n = nPops, mean = mu.alpha, sd = sigma.alpha)
+  beta <- rnorm(n = nPops, mean = mu.beta, sd = sigma.beta)
+  all.pars <- c(alpha, beta)
+  lin.pred <- Xmat %*% all.pars
+  exp.p <- exp(lin.pred) / (1 + exp(lin.pred))
+  C <- rbinom(n = n, size = N, prob = exp.p)
+  xyplot(C/N ~ precip | pop, ylab = "Realized woodchat shrike breeding success ", 
+    xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
+	col = rgb(0, 0, 0, 0.4))     ### %%%%%% DOES NOT PRODUCE THE PLOT
+  return(list(nPops = nPops, nYears = nYears, mu.alpha = mu.alpha, mu.beta = mu.beta,
+    sigma.alpha = sigma.alpha, sigma.beta = sigma.beta, pop = pop, precip = precip,   
+	alpha = alpha, beta = beta, N = N, C = C))
+}
+
+
+#' Simulate data for Chapter 19: Site-occupancy model
+#'
+#' Simulate Detection/nondetection data of Chiltern gentians
+#'
+#' @param nSites Number of sites
+#' @param nVisits Number of replicate visits per site
+#' @param alpha.occ Occupancy intercept
+#' @param beta.occ Occupancy slope
+#' @param alpha.p Detection probability intercept
+#' @param beta.p Detection probability slope
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nSites}{Number of sites}
+#'   \item{nVisits}{Number replicate visits per site}
+#'   \item{alpha.occ}{Occupancy intercept}
+#'   \item{beta.occ}{Occupancy slope}
+#'   \item{alpha.p}{Detection probability intercept}
+#'   \item{beta.p}{Detection probability slope}
+#'   \item{humidity}{Humidity covariate}
+#'   \item{occ.prob}{Probability of occupancy at each site}
+#'   \item{z}{True occupancy state at each site}
+#'   \item{true_Nz}{True number of occupied sites}
+#'   \item{lp}{Linear predictor for detection}
+#'   \item{p}{Probability of detection at each site}
+#'   \item{y}{Simulated detection/non-detection data}
+#'   \item{obs_Nz}{Observed number of occupied sites}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat19())             # Implicit default arguments
+#' str(dat <- simDat19(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2,
+#'   alpha.p = 0, beta.p = -3))       # Explicit default arguments
+#' str(dat <- simDat19(nSites = 500)) # More sites
+#' str(dat <- simDat19(nVisits = 1))  # Single-visit data
+#' str(dat <- simDat19(nVisits = 20)) # 20 visits, will yield cumulative detection prob of about 1
+#' str(dat <- simDat19(alpha.occ = 2))# Much higher occupancy
+#' str(dat <- simDat19(beta.occ = 0)) # No effect of humidity on occupancy
+#' str(dat <- simDat19(beta.p = 3))   # Positive effect of humidity on detection
+#' str(dat <- simDat19(beta.p = 0))   # No effect of humidity on detection
+#'
+#' @importFrom lattice xyplot
+#' @importFrom graphics par polygon
+#' @importFrom grDevices rgb
+#' @importFrom stats runif rbinom plogis glm predict binomial
+#' @export
+simDat19 <- function(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2, alpha.p = 0, beta.p = -3){
+  humidity <- runif(n = nSites, min = -1, max =1)
+  occ.prob <- plogis(alpha.occ + beta.occ * humidity)
+  z <- rbinom(n = nSites, size = 1, prob = occ.prob)
+  true_Nz <- sum(z) # True number of occupied sites among the visited sites
+  # Observation process
+  lp <- alpha.p + beta.p * humidity    # The linear predictor for detection
+  p <- plogis(lp)       # Get p on the probability scale
+  y <- array(dim = c(nSites, nVisits))
+  for(t in 1:nVisits){
+    y[,t] <- rbinom(n = nSites, size = 1, prob = z * p)
+  }
+  obs_Nz <- sum(apply(y, 1, sum) > 0)  # Apparent number of occupied among visited sites
+  obsZ <- as.numeric(apply(y, 1, sum) > 0)  # 'Observed presence/absence'
+  naive.analysis <- glm(obsZ ~ humidity, family = binomial)
+  summary(naive.analysis)
+  lpred.naive <- predict(naive.analysis, type = 'link', se = TRUE)
+  pred.naive <- plogis(lpred.naive$fit)
+  LCL.naive <- plogis(lpred.naive$fit-2*lpred.naive$se)
+  UCL.naive <- plogis(lpred.naive$fit+2*lpred.naive$se)
+
+  par(mfrow = c(1, 3), mar = c(6,6,5,4), cex.lab = 1.6, cex.axis = 1.6, cex.main = 2)
+  plot(humidity, occ.prob, ylim = c(0,1), xlab = "Humidity index", ylab = "Occupancy probability", main = "State process", las = 1, pch = 16, cex = 2, col = rgb(0,0,0,0.3), frame = FALSE)
+  plot(humidity, p, ylim = c(0,1), xlab = "Humidity index", ylab = "Detection probability", main = "Observation process", las = 1, pch = 16, cex = 2, col = rgb(0,0,0,0.3), frame = FALSE)
+  plot(humidity, pred.naive, ylim = c(0, max(UCL.naive)), xlab = "Humidity index", ylab = "Apparent occupancy prob.", main = "Confounding of\nstate and observation processes", las = 1, pch = 16, cex = 2, col = rgb(0,0,0,0.4), frame = FALSE)
+  polygon(c(sort(humidity), rev(humidity[order(humidity)])), c(LCL.naive[order(humidity)], rev(UCL.naive[order(humidity)])), col = rgb(0,0,0, 0.2), border = NA)
+  return(list(nSites = nSites, nVisits = nVisits, alpha.occ = alpha.occ, beta.occ = beta.occ,
+  alpha.p = alpha.p, beta.p = beta.p, humidity = humidity, occ.prob = occ.prob, z = z, true_Nz = true_Nz,
+  lp = lp, p = p, y = y, obs_Nz = obs_Nz))
+}
+
+
+#' Simulate data for Chapter 20: Integrated model
+#'
+#' Simulate three count datasets under different data collection conditions
+#'
+#' @param nsites1 Number of sites in regular count dataset
+#' @param nsites2 Number of sites in zero-truncated count dataset
+#' @param nsites3 Number of sites in detection/non-detection dataset
+#' @param mean.lam Mean site abundance
+#' @param beta Slope for elevation covariate
+#'
+#' @return A list of simulated data and parameters.
+#' \itemize{
+#'   \item{nsites1}{Number of sites in regular count dataset}
+#'   \item{nsites2}{Number of sites in zero-truncated count dataset}
+#'   \item{nsites3}{Number of sites in detection/non-detection dataset}
+#'   \item{mean.lam}{Mean site abundance}
+#'   \item{beta}{Slope for elevation covariate}
+#'   \item{C1}{Simulated regular counts from dataset 1}
+#'   \item{C2}{Simulated regular counts from dataset 2}
+#'   \item{C3}{Simulated regular counts from dataset 3}
+#'   \item{ztC2}{Simulated zero-truncated counts from dataset 2}
+#'   \item{y}{Simulated detection/non-detection data from dataset 3}
+#' }
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat20())             # Implicit default arguments
+#'
+#' # Revert to an 'integrated Poisson/binomial model-of-the-mean': no effect of elevation on abundance
+#' str(dat <- simDat20(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2, beta = 0))
+#'
+#' @importFrom graphics par axis points
+#' @importFrom grDevices adjustcolor
+#' @importFrom stats runif rpois
+#' @export
+simDat20 <- function(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2, beta = -2){
+  # Simulate elevation covariate for all three and standardize 
+  # to mean of 1000 and standard deviation also of 1000 m
+  elev1 <- sort(runif(nsites1, 200, 2000))   # Imagine 200-2000 m a.s.l. 
+  elev2 <- sort(runif(nsites2, 200, 2000))
+  elev3 <- sort(runif(nsites3, 200, 2000))
+  selev1 <- (elev1 - 1000) / 1000     # Scaled elev1
+  selev2 <- (elev2 - 1000) / 1000     # Scaled elev2
+  selev3 <- (elev3 - 1000) / 1000     # Scaled elev3
+  # Create three regular count data sets with log-linear effects
+  C1 <- rpois(nsites1, exp(log(mean.lam) + beta * selev1))
+  C2 <- rpois(nsites2, exp(log(mean.lam) + beta * selev2))
+  C3 <- rpois(nsites3, exp(log(mean.lam) + beta * selev3))
+  # Create data set 2 (C2) by zero-truncating (discard all zeroes)
+  ztC2 <- C2              # Make a copy
+  ztC2 <- ztC2[ztC2 > 0]  # Tossing out zeroes yields zero-truncated data
+  # Turn count data set 3 (C3) into detection/nondetection data (y)
+  y <- C3                 # Make a copy
+  y[y > 1] <- 1           # Squash to binary
+  # Plot counts/DND data in all data sets (Fig. 20–3)
+  par(mfrow = c(1, 2), mar = c(5, 5, 4, 1), cex = 1.2, cex.lab = 1.5, cex.axis = 1.5, las = 1)
+  plot(elev2[C2>0], jitter(ztC2), pch = 16, xlab = 'Elevation (m)', ylab = 'Counts', frame = FALSE, ylim = range(c(C1, ztC2)), col = adjustcolor('grey80', 1), main = 'Data sets 1 and 2')
+  points(elev1, jitter(C1), pch = 16)
+  # lines(200:2000, exp(log(2) -2 * ((200:2000)-1000)/1000 ), col = 'red', lty = 1, lwd = 2) # Perhaps adapt
+  axis(1, at = c(250, 750, 1250, 1750), tcl = -0.25, labels = NA)
+  plot(elev3, jitter(y, amount = 0.04), xlab = 'Elevation (m)', ylab = 'Detection/nondetection', axes = FALSE, pch = 16, col = adjustcolor('grey60', 0.3), main = 'Data set 3')
+  axis(1)
+  axis(1, at = c(250, 750, 1250, 1750), tcl = -0.25, labels = NA)
+  axis(2, at = c(0, 1), labels = c(0, 1))
+  return(list(nsites1 = nsites1, nsites2 = nsites2, nsites3 = nsites3, mean.lam = mean.lam, beta = beta,
+  C1 = C1, C2 = C2, C3 = C3, ztC2 = ztC2, y = y))
 }
