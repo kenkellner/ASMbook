@@ -8,6 +8,8 @@ Authors@R: c(
 Depends: R (>= 3.4.0)
 Imports:
     coda,
+    lattice,
+    MASS,
     stats,
     TMB
 Suggests: roxygen2

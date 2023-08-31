@@ -5,6 +5,8 @@
 #'
 #' @return A data frame of summary information for each saved parameter
 #'
+#' @author Ken Kellner
+#' 
 #' @export
 nimbleSummary <- function(samples, params=NULL){
   if(!is.null(params)) samples <- order_params(samples, params)

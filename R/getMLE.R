@@ -6,6 +6,9 @@
 #' @return A matrix of parameter estimates, standard errors, and 95% CI.
 #'
 #' @name getMLE
+#'
+#' @author Marc Kéry, Ken Kellner
+#'
 #' @export
 getMLE <- function(opt, dig = 3){
   MLE <- opt$par

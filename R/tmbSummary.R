@@ -6,6 +6,8 @@
 #'
 #' @return A matrix of parameter estimates and standard errors.
 #'
+#' @author Ken Kellner
+#'
 #' @importFrom TMB sdreport summary.sdreport
 #' @export
 tmbSummary <- function(tmbObject, dig=NULL){

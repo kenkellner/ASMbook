@@ -20,3 +20,6 @@ A data frame of summary information for each saved parameter
 \description{
 Summarize MCMC Samples in an mcmc.list Object Created by NIMBLE
 }
+\author{
+Ken Kellner
+}

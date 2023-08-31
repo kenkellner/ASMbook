@@ -20,3 +20,6 @@ A matrix of parameter estimates, standard errors, and 95% CI.
 \description{
 Print Estimates and Standard Errors from optim Output
 }
+\author{
+Marc Kéry, Ken Kellner
+}

@@ -21,3 +21,6 @@ A matrix of parameter estimates and standard errors.
 \description{
 Summarize Output from TMB
 }
+\author{
+Ken Kellner
+}
