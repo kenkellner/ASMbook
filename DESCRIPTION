@@ -1,6 +1,6 @@
 Package: ASMbook
-Version: 0.1.5
-Date: 2023-08-31
+Version: 0.1.6
+Date: 2024-04-18
 Title: Functions for the Book 'Applied Statistical Modeling for Ecologists'
 Authors@R: c(
   person("Ken", "Kellner", email="contact@kenkellner.com", role=c("cre","aut")),
@@ -17,4 +17,4 @@ Description: Provides functions to accompany the publication 'Applied Statistica
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.1
