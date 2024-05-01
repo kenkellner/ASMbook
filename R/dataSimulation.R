@@ -8,12 +8,10 @@
 #' @param sd Population standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{n}{Sample size}
 #'   \item{mean}{Population mean}
 #'   \item{sd}{Population SD}
 #'   \item{y}{Simulated peregrine mass measurements}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -46,13 +44,11 @@ simDat4 <- function(n = 10, mean = 600, sd = 30){
 #' @param sigma2 Value for the residual variance
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{n}{Sample size}
 #'   \item{a}{Intercept}
 #'   \item{b}{Slope}
 #'   \item{sd}{Residual SD}
 #'   \item{y}{Simulated wallcreeper occupancy probabilities}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -81,7 +77,6 @@ simDat5 <- function(n = 16, a = 40, b = -0.5, sigma2 = 25){
 #' @param sigma The standard deviation for both groups
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{n1}{Female sample size}
 #'   \item{n2}{Male sample size}
 #'   \item{mu1}{Female mean}
@@ -90,7 +85,6 @@ simDat5 <- function(n = 16, a = 40, b = -0.5, sigma2 = 25){
 #'   \item{sigma}{Standard deviation for both groups}
 #'   \item{x}{Indicator variable for sex, 1 = male}
 #'   \item{y}{Simulated wingspan data}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -126,7 +120,6 @@ simDat62 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma = 2.75){
 #' @param sigma2 The standard deviation for males
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{n1}{Female sample size}
 #'   \item{n2}{Male sample size}
 #'   \item{mu1}{Female mean}
@@ -136,7 +129,6 @@ simDat62 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma = 2.75){
 #'   \item{sigma2}{Standard deviation for males}
 #'   \item{x}{Indicator variable for sex, 1 = male}
 #'   \item{y}{Simulated wingspan data}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -179,7 +171,6 @@ simDat63 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma1 = 3, sigma2
 #' @param sigma Value for the residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{pop.means}{Population means}
@@ -187,7 +178,6 @@ simDat63 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma1 = 3, sigma2
 #'   \item{pop}{Indicator for population number}
 #'   \item{eps}{Simulated residuals}
 #'   \item{y}{Simulated lengths}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -227,7 +217,6 @@ simDat72 <- function(nPops = 5, nSample = 10, pop.means = c(50, 40, 45, 55, 60),
 #' @param sigma Value for the residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{pop.grand.mean}{Mean of population means}
@@ -237,7 +226,6 @@ simDat72 <- function(nPops = 5, nSample = 10, pop.means = c(50, 40, 45, 55, 60),
 #'   \item{pop.means}{Simulated population means}
 #'   \item{eps}{Simulated residuals}
 #'   \item{y}{Simulated lengths}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -281,7 +269,6 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
 #' @param sigma Value for the residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{baseline}{Grand mean length}
@@ -294,7 +281,6 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
 #'   \item{hab}{Indicator for habitat number}
 #'   \item{eps}{Simulated residuals}
 #'   \item{wing}{Simulated wing lengths}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -347,7 +333,6 @@ simDat8 <- function(nPops = 5, nHab = 3, nSample = 12, baseline = 40, pop.eff = 
 #' @param sigma Value for the residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{beta.vec}{Regression parameter values}
@@ -356,7 +341,6 @@ simDat8 <- function(nPops = 5, nHab = 3, nSample = 12, baseline = 40, pop.eff = 
 #'   \item{pop}{Population name (factor)}
 #'   \item{lengthC}{Centered body length for each viper}
 #'   \item{mass}{Simulated body mass for each viper}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -418,7 +402,6 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #' @param sigma Residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{mu.alpha}{Mean of random intercepts}
@@ -433,7 +416,6 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #'   \item{beta}{Random slopes}
 #'   \item{eps}{Residuals}
 #'   \item{mass}{Simulated body mass for each snake}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -516,7 +498,6 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #' @param sigma Residual standard deviation
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{mu.alpha}{Mean of random intercepts}
@@ -533,7 +514,6 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #'   \item{beta}{Random slopes}
 #'   \item{eps}{Residuals}
 #'   \item{mass}{Simulated body mass for each snake}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -624,12 +604,10 @@ simDat105 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #' @param beta Slope for land use
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nSites}{Number of sites}
 #'   \item{alpha}{Intercept}
 #'   \item{beta}{Slope for land use}
 #'   \item{y}{Simulated hare counts}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -665,14 +643,12 @@ simDat11 <- function(nSites = 30, alpha = log(2), beta = log(5)-log(2)){
 #' @param sd Standard deviation for overdispersion
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nSites}{Number of sites}
 #'   \item{alpha}{Intercept}
 #'   \item{beta}{Slope for land use}
 #'   \item{sd}{Standard deviation for overdispersion}
 #'   \item{C_OD}{Simulated hare counts with overdispersion}
 #'   \item{C_Poisson}{Simulated hare counts without overdispersion}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -715,14 +691,12 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
 #' @param psi Zero inflation parameter (probability of structural 0)
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nSites}{Number of sites}
 #'   \item{alpha}{Intercept}
 #'   \item{beta}{Slope for land use}
 #'   \item{psi}{Zero inflation parameter}
 #'   \item{w}{Indicator that count is not a structural 0}
 #'   \item{C}{Simulated hare counts with zero inflation}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -768,13 +742,11 @@ simDat123 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), psi = 0
 #' @param beta Slope for land use
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nSites}{Number of sites}
 #'   \item{alpha}{Intercept}
 #'   \item{beta}{Slope for land use}
 #'   \item{A}{Site areas}
 #'   \item{C}{Simulated hare counts}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -807,7 +779,6 @@ simDat124 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2)){
 #' @param beta.vec Vector of regression coefficients
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nSample}{Number of samples per population}
 #'   \item{beta}{Vector of regression coefficients}
@@ -816,7 +787,6 @@ simDat124 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2)){
 #'   \item{orig.length}{Wing length, non-centered}
 #'   \item{wing.length}{Wing length, centered}
 #'   \item{load}{Simulated parasite loads}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -875,7 +845,6 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
 #' @param sigma.beta SD of random slopes
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nYears}{Number of years sampled}
 #'   \item{mu.alpha}{Mean of random intercepts}
@@ -888,7 +857,6 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
 #'   \item{alpha}{Random intercepts}
 #'   \item{beta}{Random slopes}
 #'   \item{C}{Simulated shrike counts}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -955,7 +923,6 @@ simDat14 <- function(nPops = 16, nYears = 30, mu.alpha = 3, sigma.alpha = 1, mu.
 #' @param theta.ch Probability of presence for chiltern gentian
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{N}{Number of sites}
 #'   \item{theta.cr}{Probability for cross-leaved gentian}
 #'   \item{theta.ch}{Probability for chiltern gentian}
@@ -964,7 +931,6 @@ simDat14 <- function(nPops = 16, nYears = 30, mu.alpha = 3, sigma.alpha = 1, mu.
 #'   \item{C}{Aggregated presence/absence data}
 #'   \item{species}{Species indicator for aggregated data}
 #'   \item{chiltern}{Effect of chiltern (difference in species intercepts)}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -1007,7 +973,6 @@ simDat15 <- function(N = 50, theta.cr = 12/50, theta.ch = 38/50){
 #' @param beta.vec Vector of regression coefficients
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nRegion}{Number of regions}
 #'   \item{nSite}{Number of sites per region}
 #'   \item{beta}{Vector of regression coefficients}
@@ -1016,7 +981,6 @@ simDat15 <- function(N = 50, theta.cr = 12/50, theta.ch = 38/50){
 #'   \item{wetness}{Wetness covariate}
 #'   \item{N}{Number of adders captured at each site}
 #'   \item{C}{Number of black adders captured at each site}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -1085,7 +1049,6 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
 #' @param sigma.beta SD of random slopes
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nPops}{Number of populations}
 #'   \item{nYears}{Number of years sampled}
 #'   \item{mu.alpha}{Mean of random intercepts}
@@ -1098,7 +1061,6 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
 #'   \item{beta}{Random slopes}
 #'   \item{N}{Number of shrike pairs at each site}
 #'   \item{C}{Number of successful shrike pairs at each site}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -1161,6 +1123,88 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 	alpha = alpha, beta = beta, N = N, C = C))
 }
 
+#' Simulate data for Chapter 18: model selection
+#'
+#' Simulate counts of rattlesnakes in Virginia
+#'
+#' @param nSites Sample size (number of snakes)
+#' @param beta1.vec Values of log-linear intercept and coefs of rock, oak, 
+#'  and chip (linear and squared), in this order
+#' @param ncov2 Number of 'other' covariates
+#' @param beta2.vec Values of coefs of the 'other' covariates (all continuous).
+#'  All at zero by default
+#' @param show.plot Switch to turn on or off plotting. Set to 'FALSE' when running sims
+#'
+#' @return A list of simulated data and parameters.
+#'   \item{nSites}{Sample size}
+#'   \item{rock}{Rock covariate vector}
+#'   \item{oak}{Oak covariate vector}
+#'   \item{chip1}{Chip covariate vector}
+#'   \item{chip2}{Chip^2 covariate vector}
+#'   \item{Xrest}{Array of "other" covariate values}
+#'   \item{beta1.vec}{Parameter values for intercept, rock, oak, chip, chip^2}
+#'   \item{ncov2}{Number of "other" covariates}
+#'   \item{beta2.vec}{Vector of coefficient values for "other" covariates}
+#'   \item{C}{Simulated rattlesnake counts}
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' str(dat <- simDat18())  # With default arguments
+#'
+#' #### First variant of data simulation: beta1.vec is identical, beta2.vec is not
+#' # Variant B: execute when you want to play with a small data set
+#' set.seed(18)
+#' trainDat <- simDat18(nSites = 50, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 10,
+#'   beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
+#' testDat <- simDat18(nSites = 50, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 10,
+#'   beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
+#' # Note how relatively different the two realizations of the SAME process are  
+#'
+#' #### Second variant of data simulation: both beta1.vec and beta2.vec are identical
+#'
+#' # Variant B: execute when you want to play with a small data set
+#' set.seed(18)
+#' beta2.vec <- rnorm(10, 0, 0.1)
+#' trainDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
+#'   beta2.vec = beta2.vec, show.plot = TRUE)
+#' testDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
+#'   beta2.vec = beta2.vec, show.plot = TRUE)
+#' # Note how relatively different the two realizations of the SAME process are  
+#'
+#' @importFrom graphics par lines
+#' @importFrom grDevices rgb
+#' @importFrom stats rnorm rpois
+#' @export
+simDat18 <- function(nSites = 100, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 50,
+  beta2.vec = rnorm(50, 0, 0), show.plot = TRUE){
+  rock <- rnorm(nSites)
+  oak <- rnorm(nSites)
+  chip1 <- rnorm(nSites)
+  chip2 <- chip1^2
+  # Simulate values of the other covariates
+  Xrest <- array(rnorm(ncov2 * nSites), dim = c(nSites, ncov2))
+  # Compose linear predictor 
+  lin.pred <- as.numeric(cbind(cbind(1, rock, oak, chip1, chip2), Xrest) %*% c(beta1.vec, beta2.vec))
+  lambda <- exp(lin.pred)
+  C <- rpois(n = nSites, lambda = lambda)
+  if(show.plot){
+    par(mfrow = c(1, 3), mar = c(5,5,4,3), cex.axis = 1.5, cex.lab = 1.5)
+    plot(rock, C, pch = 16, las = 1, col = rgb(0, 0, 0, 0.3), ylab = "Count",
+	  xlab = "Rock cover", cex = 1.5, frame = FALSE)
+    lines(sort(rock), exp(beta1.vec[1] + beta1.vec[2] * rock)[order(rock)], col = rgb(1,0,0, 0.5), lwd = 5)
+    plot(oak, C, pch = 16, las = 1, col = rgb(0, 0, 0, 0.3), ylab = "Count",
+	  xlab = "Oak cover", cex = 1.5, frame = FALSE)
+    lines(sort(oak), exp(beta1.vec[1] + beta1.vec[3] * oak)[order(oak)], col = rgb(1,0,0, 0.5), lwd = 5)
+    plot(chip1, C, pch = 16, las = 1, col = rgb(0, 0, 0, 0.3), ylab = "Count",
+	  xlab = "Chipmunk abundance", cex = 1.5, frame = FALSE)
+    lines(sort(chip1), exp(beta1.vec[1] + beta1.vec[4] * chip1 + beta1.vec[5] * chip2)[order(chip1)],
+      col = rgb(1,0,0, 0.5), lwd = 5)
+	}
+  return(list(nSites = nSites, rock = rock, oak = oak, chip1 = chip1, chip2 = chip2,
+    Xrest = Xrest, beta1.vec = beta1.vec, ncov2 = ncov2, beta2.vec = beta2.vec, C = C))
+}
+
 
 #' Simulate data for Chapter 19: Site-occupancy model
 #'
@@ -1174,7 +1218,6 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #' @param beta.p Detection probability slope
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nSites}{Number of sites}
 #'   \item{nVisits}{Number replicate visits per site}
 #'   \item{alpha.occ}{Occupancy intercept}
@@ -1189,7 +1232,6 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #'   \item{p}{Probability of detection at each site}
 #'   \item{y}{Simulated detection/non-detection data}
 #'   \item{obs_Nz}{Observed number of occupied sites}
-#' }
 #'
 #' @author Marc Kéry
 #'
@@ -1253,7 +1295,6 @@ simDat19 <- function(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2, alp
 #' @param beta Slope for elevation covariate
 #'
 #' @return A list of simulated data and parameters.
-#' \itemize{
 #'   \item{nsites1}{Number of sites in regular count dataset}
 #'   \item{nsites2}{Number of sites in zero-truncated count dataset}
 #'   \item{nsites3}{Number of sites in detection/non-detection dataset}
@@ -1264,7 +1305,6 @@ simDat19 <- function(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2, alp
 #'   \item{C3}{Simulated regular counts from dataset 3}
 #'   \item{ztC2}{Simulated zero-truncated counts from dataset 2}
 #'   \item{y}{Simulated detection/non-detection data from dataset 3}
-#' }
 #'
 #' @author Marc Kéry
 #'
