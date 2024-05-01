@@ -28,7 +28,6 @@ simDat19(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nSites}{Number of sites}
   \item{nVisits}{Number replicate visits per site}
   \item{alpha.occ}{Occupancy intercept}
@@ -43,7 +42,6 @@ A list of simulated data and parameters.
   \item{p}{Probability of detection at each site}
   \item{y}{Simulated detection/non-detection data}
   \item{obs_Nz}{Observed number of occupied sites}
-}
 }
 \description{
 Simulate Detection/nondetection data of Chiltern gentians

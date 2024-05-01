@@ -25,7 +25,6 @@ simDat20(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nsites1}{Number of sites in regular count dataset}
   \item{nsites2}{Number of sites in zero-truncated count dataset}
   \item{nsites3}{Number of sites in detection/non-detection dataset}
@@ -36,7 +35,6 @@ A list of simulated data and parameters.
   \item{C3}{Simulated regular counts from dataset 3}
   \item{ztC2}{Simulated zero-truncated counts from dataset 2}
   \item{y}{Simulated detection/non-detection data from dataset 3}
-}
 }
 \description{
 Simulate three count datasets under different data collection conditions

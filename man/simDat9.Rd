@@ -22,7 +22,6 @@ simDat9(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nSample}{Number of samples per population}
   \item{beta.vec}{Regression parameter values}
@@ -31,7 +30,6 @@ A list of simulated data and parameters.
   \item{pop}{Population name (factor)}
   \item{lengthC}{Centered body length for each viper}
   \item{mass}{Simulated body mass for each viper}
-}
 }
 \description{
 Simulate mass ~ length regressions in 3 populations of asp vipers

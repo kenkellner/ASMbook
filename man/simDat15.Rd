@@ -15,7 +15,6 @@ simDat15(N = 50, theta.cr = 12/50, theta.ch = 38/50)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{N}{Number of sites}
   \item{theta.cr}{Probability for cross-leaved gentian}
   \item{theta.ch}{Probability for chiltern gentian}
@@ -24,7 +23,6 @@ A list of simulated data and parameters.
   \item{C}{Aggregated presence/absence data}
   \item{species}{Species indicator for aggregated data}
   \item{chiltern}{Effect of chiltern (difference in species intercepts)}
-}
 }
 \description{
 Generate presence/absence data for two gentian species (Bernoulli variant)

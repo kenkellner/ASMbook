@@ -17,14 +17,12 @@ simDat122(nSites = 50, alpha = log(2), beta = log(5) - log(2), sd = 0.5)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nSites}{Number of sites}
   \item{alpha}{Intercept}
   \item{beta}{Slope for land use}
   \item{sd}{Standard deviation for overdispersion}
   \item{C_OD}{Simulated hare counts with overdispersion}
   \item{C_Poisson}{Simulated hare counts without overdispersion}
-}
 }
 \description{
 Generate counts of hares in two landuse types

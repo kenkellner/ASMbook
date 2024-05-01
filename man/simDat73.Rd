@@ -19,7 +19,6 @@ simDat73(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, sigma = 5)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nSample}{Number of samples per population}
   \item{pop.grand.mean}{Mean of population means}
@@ -29,7 +28,6 @@ A list of simulated data and parameters.
   \item{pop.means}{Simulated population means}
   \item{eps}{Simulated residuals}
   \item{y}{Simulated lengths}
-}
 }
 \description{
 Simulate snout-vent length measurements of 'nSample' smooth snakes in each of 'nPops' populations

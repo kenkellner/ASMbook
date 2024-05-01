@@ -28,7 +28,6 @@ simDat17(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nYears}{Number of years sampled}
   \item{mu.alpha}{Mean of random intercepts}
@@ -41,7 +40,6 @@ A list of simulated data and parameters.
   \item{beta}{Random slopes}
   \item{N}{Number of shrike pairs at each site}
   \item{C}{Number of successful shrike pairs at each site}
-}
 }
 \description{
 Simulate Number of successful pairs ~ precipitation regressions in 16 populations of woodchat shrikes

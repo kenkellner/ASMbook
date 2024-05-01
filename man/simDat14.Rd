@@ -28,7 +28,6 @@ simDat14(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nYears}{Number of years sampled}
   \item{mu.alpha}{Mean of random intercepts}
@@ -41,7 +40,6 @@ A list of simulated data and parameters.
   \item{alpha}{Random intercepts}
   \item{beta}{Random slopes}
   \item{C}{Simulated shrike counts}
-}
 }
 \description{
 Simulate count ~ year regressions in 16 populations of red-backed shrikes

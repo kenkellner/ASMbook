@@ -34,7 +34,6 @@ simDat8(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nSample}{Number of samples per population}
   \item{baseline}{Grand mean length}
@@ -47,7 +46,6 @@ A list of simulated data and parameters.
   \item{hab}{Indicator for habitat number}
   \item{eps}{Simulated residuals}
   \item{wing}{Simulated wing lengths}
-}
 }
 \description{
 Simulate wing length measurements of mourning cloak butterflies with two factors (habitat and population)

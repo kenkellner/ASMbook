@@ -17,14 +17,12 @@ simDat123(nSites = 50, alpha = log(2), beta = log(5) - log(2), psi = 0.2)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nSites}{Number of sites}
   \item{alpha}{Intercept}
   \item{beta}{Slope for land use}
   \item{psi}{Zero inflation parameter}
   \item{w}{Indicator that count is not a structural 0}
   \item{C}{Simulated hare counts with zero inflation}
-}
 }
 \description{
 Generate counts of hares in two landuse types when there may be 

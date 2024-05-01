@@ -15,7 +15,6 @@ simDat16(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5))
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nRegion}{Number of regions}
   \item{nSite}{Number of sites per region}
   \item{beta}{Vector of regression coefficients}
@@ -24,7 +23,6 @@ A list of simulated data and parameters.
   \item{wetness}{Wetness covariate}
   \item{N}{Number of adders captured at each site}
   \item{C}{Number of black adders captured at each site}
-}
 }
 \description{
 Simulate Number black individuals ~ wetness regressions in adders in 3 regions

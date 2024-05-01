@@ -17,13 +17,11 @@ simDat5(n = 16, a = 40, b = -0.5, sigma2 = 25)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{n}{Sample size}
   \item{a}{Intercept}
   \item{b}{Slope}
   \item{sd}{Residual SD}
   \item{y}{Simulated wallcreeper occupancy probabilities}
-}
 }
 \description{
 Simulate percent occupancy population trajectory of Swiss Wallcreepers

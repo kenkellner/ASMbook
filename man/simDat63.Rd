@@ -21,7 +21,6 @@ simDat63(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma1 = 3, sigma2 = 2.5)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{n1}{Female sample size}
   \item{n2}{Male sample size}
   \item{mu1}{Female mean}
@@ -31,7 +30,6 @@ A list of simulated data and parameters.
   \item{sigma2}{Standard deviation for males}
   \item{x}{Indicator variable for sex, 1 = male}
   \item{y}{Simulated wingspan data}
-}
 }
 \description{
 Simulate wingspan measurements in female and male peregrines.

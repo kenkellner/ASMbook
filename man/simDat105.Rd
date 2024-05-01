@@ -34,7 +34,6 @@ simDat105(
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nSample}{Number of samples per population}
   \item{mu.alpha}{Mean of random intercepts}
@@ -51,7 +50,6 @@ A list of simulated data and parameters.
   \item{beta}{Random slopes}
   \item{eps}{Residuals}
   \item{mass}{Simulated body mass for each snake}
-}
 }
 \description{
 Simulate mass ~ length regressions in 56 populations of snakes

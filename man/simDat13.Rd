@@ -15,7 +15,6 @@ simDat13(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5))
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nPops}{Number of populations}
   \item{nSample}{Number of samples per population}
   \item{beta}{Vector of regression coefficients}
@@ -24,7 +23,6 @@ A list of simulated data and parameters.
   \item{orig.length}{Wing length, non-centered}
   \item{wing.length}{Wing length, centered}
   \item{load}{Simulated parasite loads}
-}
 }
 \description{
 Simulate parasite load ~ size regressions in 3 populations of goldenring dragonflies

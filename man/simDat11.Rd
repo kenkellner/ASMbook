@@ -15,12 +15,10 @@ simDat11(nSites = 30, alpha = log(2), beta = log(5) - log(2))
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{nSites}{Number of sites}
   \item{alpha}{Intercept}
   \item{beta}{Slope for land use}
   \item{y}{Simulated hare counts}
-}
 }
 \description{
 Generate counts of hares in two areas with different landuse

@@ -15,12 +15,10 @@ simDat4(n = 10, mean = 600, sd = 30)
 }
 \value{
 A list of simulated data and parameters.
-\itemize{
   \item{n}{Sample size}
   \item{mean}{Population mean}
   \item{sd}{Population SD}
   \item{y}{Simulated peregrine mass measurements}
-}
 }
 \description{
 Simulate body mass measurements for 'n' peregrine falcons
