@@ -1,10 +1,10 @@
 Package: ASMbook
 Version: 0.1.7
-Date: 2024-05-01
+Date: 2024-05-16
 Title: Functions for the Book 'Applied Statistical Modeling for Ecologists'
 Authors@R: c(
-  person("Ken", "Kellner", email="contact@kenkellner.com", role=c("cre","aut")),
-  person("Marc", "Kéry", role="aut") )
+  person("Marc", "Kéry", role="aut"),
+  person("Ken", "Kellner", email="contact@kenkellner.com", role=c("cre","aut")))
 Depends: R (>= 3.4.0)
 Imports:
     coda,
@@ -13,8 +13,10 @@ Imports:
     stats,
     TMB
 Suggests: roxygen2
-Description: Provides functions to accompany the publication 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner.
+Description: Provides functions to accompany the publication 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner (ISBN: 9780443137150).
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8
+URL: https://kenkellner.com/ASM/
+BugReports: https://github.com/kenkellner/ASMbook/issues
 RoxygenNote: 7.3.1
