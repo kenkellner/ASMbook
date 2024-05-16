@@ -31,7 +31,8 @@ Data are simulated under the assumptions of a model with fixed effects of popula
 }
 \examples{
 str(dat <- simDat72())      # Implicit default arguments
-str(dat <- simDat72(nPops = 10, nSample = 5, pop.means = runif(10,20,60))) # More pops, fewer snakes in each
+# More pops, fewer snakes in each
+str(dat <- simDat72(nPops = 10, nSample = 5, pop.means = runif(10,20,60)))
 
 # Revert to "model-of-the-mean" (larger sample size to minimize sampling variability)
 str(dat <- simDat72(nSample = 1000, pop.means = rep(50, 5), sigma = 5))

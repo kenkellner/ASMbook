@@ -37,7 +37,7 @@ str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 6, 0, 0)))
 # Same with less strong logistic regression coefficient
 str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 3, 0, 0)))
 
-# Revert to simple logit-linear binomial regression: no effect of population (and less strong coefficient)
+# Revert to simple logit-linear binomial regression: no effect of pop (and weaker coefficient)
 str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 0, 0, 3, 0, 0)))
 
 # Revert to one-way ANOVA binomial model: no effect of wetness

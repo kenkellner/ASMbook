@@ -63,7 +63,7 @@ xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab 
  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
 main = 'Realized population trends\n(random-effects, one-way Poisson ANOVA model)')
 
-# Revert to simple log-linear Poisson regression (= no effects of pop on either intercepts or slopes)
+# Revert to simple log-linear Poisson regression (no effects of pop on intercepts or slopes)
 str(dat <- simDat14(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
 xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 

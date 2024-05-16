@@ -66,7 +66,7 @@ col = rgb(0, 0, 0, 0.4)) # This works
 # Fewer populations, more snakes (makes patterns perhaps easier to see)
 str(dat <- simDat105(nPops = 16, nSample = 100))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-main = 'Realized mass-length relationships (random-coefficients model\nwith intercept-slope correlation)', 
+main = 'Realized mass-length relationships (random-coef model\nintercept-slope correlation)', 
 pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to simpler random-coefficient model without correlation between intercepts and slopes
@@ -77,9 +77,10 @@ main = 'Realized mass-length relationships\n(random-coefficients model without c
 pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to even simpler random-intercepts model without correlation between intercepts and slopes
-# (that means to set to zero the covariance term as well as the among-population variance of the slopes)
+# (that means to set to zero the covariance term and the among-population variance of the slopes)
 # Note that sigma.beta = 0 and non-zero covariance crashes owing to non-positive-definite VC matrix
-str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 50, sigma.beta = 0, cov.alpha.beta = 0, 
+str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 50, sigma.beta = 0, 
+                     cov.alpha.beta = 0, 
 sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
 main = 'Realized mass-length relationships\n(random-intercepts model)', 
@@ -103,7 +104,7 @@ pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0,
   cov.alpha.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-main = 'Realized mass-length relationships\n("model-of-the-mean" without any effects of pop or length)', 
+main = 'Realized mass-length relationships\n("model-of-the-mean" with no effects of pop or length)', 
 pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 }

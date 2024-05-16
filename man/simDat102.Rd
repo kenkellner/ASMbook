@@ -72,7 +72,8 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to random-effects one-way ANOVA model, only random intercepts, but zero slopes
-str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, mu.beta = 0, sigma.beta = 0, sigma = 10))
+str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, 
+                     mu.beta = 0, sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
        main = 'Realized mass-length relationships\n(one-way ANOVA model with random pop effects)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
@@ -80,14 +81,15 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
 # Revert to simple linear regression (= no effects of pop on either intercepts or slopes)
 str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-       main = 'Realized mass-length relationships\n(this is de-facto a simple linear regression now)', 
+       main = 'Realized mass-length relationships\n(de-facto a simple linear regression now)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to "model-of-the-mean": no effects of either population or body length
-str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0, sigma = 10))
+str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, 
+                     sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-       main = 'Realized mass-length relationships\n("model-of-the-mean" without any effects of pop or length)', 
-       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+ main = 'Realized mass-length relationships\n("model-of-the-mean", no effects of pop or length)', 
+ pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 }
 \author{

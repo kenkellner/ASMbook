@@ -54,8 +54,9 @@ col = rgb(0, 0, 0, 0.4))
 # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
 str(dat <- simDat17(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-   xlab = "Spring precipitation index", main = "Realized breeding success (random-intercepts model)",
-pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+   xlab = "Spring precipitation index", 
+   main = "Realized breeding success (random-intercepts model)",
+  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
 str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
