@@ -28,11 +28,11 @@ Simulate percent occupancy population trajectory of Swiss Wallcreepers
 from a normal distribution. Note that other choices of arguments may
 lead to values for x and y that no longer make sense in the light of
 the story in Chapter 5 (i.e., where y is a percentage), but will
-still be OK for the statistical model in that chapter.
+still be OK for the statistical model introduced in that chapter.
 }
 \examples{
 str(dat <- simDat5())        # Implicit default arguments
-str(dat <- simDat5(b = 0))   # Stable population (this is a de-facto "model-of-the-mean")
+str(dat <- simDat5(b = 0))    # Stable population (this is a de-facto "model-of-the-mean")
 str(dat <- simDat5(b = 0.5)) # Expected increase
 
 }

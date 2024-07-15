@@ -21,7 +21,7 @@ A list of simulated data and parameters.
   \item{y}{Simulated peregrine mass measurements}
 }
 \description{
-Simulate body mass measurements for 'n' peregrine falcons
+Simulate body mass measurements for n peregrine falcons
 from a normal distribution with population mean = 'mean' and population sd = 'sd'
 }
 \examples{

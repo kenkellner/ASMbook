@@ -1,9 +1,9 @@
-#' Print Estimates and Standard Errors from optim Output
+#' Print Estimates Standard Errors, and 95\% Wald-type Confidence Intervals From optim Output
 #'
 #' @param opt Object resulting from a call to \code{optim}
 #' @param dig Number of decimal places to use when printing
 #'
-#' @return A matrix of parameter estimates, standard errors, and 95% CI.
+#' @return A matrix of parameter estimates, standard errors, and 95\% Wald-type confidence intervals.
 #'
 #' @name getMLE
 #'

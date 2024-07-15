@@ -49,7 +49,7 @@ A list of simulated data and parameters.
 \description{
 Simulate mass ~ length regressions in 56 populations of snakes
 with random population effects for intercepts and slopes.
-There is NO correlation between the intercept and slope random variables.
+There is no correlation between the intercept and slope random variables.
 }
 \examples{
 library(lattice)
@@ -61,7 +61,8 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
 # Fewer populations, more snakes (makes patterns perhaps easier to see ?)
 str(dat <- simDat102(nPops = 16, nSample = 100))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-       main = 'Realized mass-length relationships\n(default random-coefficients model)', 
+       main = 'Realized mass-length relationships
+       (default random-coefficients model)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to random intercept model (and less residual variation), fewer pops 
@@ -75,21 +76,24 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
 str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, 
                      mu.beta = 0, sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-       main = 'Realized mass-length relationships\n(one-way ANOVA model with random pop effects)', 
+       main = 'Realized mass-length relationships
+       (one-way ANOVA model with random pop effects)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to simple linear regression (= no effects of pop on either intercepts or slopes)
 str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-       main = 'Realized mass-length relationships\n(de-facto a simple linear regression now)', 
+       main = 'Realized mass-length relationships
+       (de-facto a simple linear regression now)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to "model-of-the-mean": no effects of either population or body length
 str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, 
                      sigma.beta = 0, sigma = 10))
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
- main = 'Realized mass-length relationships\n("model-of-the-mean", no effects of pop or length)', 
- pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+       main = 'Realized mass-length relationships
+       ("model-of-the-mean", no effects of pop or length)', 
+       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 }
 \author{

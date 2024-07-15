@@ -3,7 +3,7 @@
 \name{getMLE}
 \alias{getMLE}
 \alias{get_MLE}
-\title{Print Estimates and Standard Errors from optim Output}
+\title{Print Estimates Standard Errors, and 95\% Wald-type Confidence Intervals From optim Output}
 \usage{
 getMLE(opt, dig = 3)
 
@@ -15,10 +15,10 @@ get_MLE(opt, dig = 3)
 \item{dig}{Number of decimal places to use when printing}
 }
 \value{
-A matrix of parameter estimates, standard errors, and 95% CI.
+A matrix of parameter estimates, standard errors, and 95\% Wald-type confidence intervals.
 }
 \description{
-Print Estimates and Standard Errors from optim Output
+Print Estimates Standard Errors, and 95\% Wald-type Confidence Intervals From optim Output
 }
 \author{
 Marc Kéry, Ken Kellner

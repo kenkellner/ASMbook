@@ -34,7 +34,6 @@ str(dat <- simDat123())      # Implicit default arguments
 # Drop zero inflation (and make sample sizes bigger)
 str(dat <- simDat123(nSites = 1000, psi = 0))     # Note 0 \% of the sites have structural zeroes now
 
-# Drop zero inflation (and make sample sizes bigger)
 # Half of all sites have structural zeroes
 str(dat <- simDat123(nSites = 1000, psi = 0.5))
 

@@ -1,6 +1,6 @@
 #' Simulate data for Chapter 4: Model of the mean
 #'
-#' Simulate body mass measurements for 'n' peregrine falcons
+#' Simulate body mass measurements for n peregrine falcons
 #' from a normal distribution with population mean = 'mean' and population sd = 'sd'
 #'
 #' @param n The sample size
@@ -36,7 +36,7 @@ simDat4 <- function(n = 10, mean = 600, sd = 30){
 #' from a normal distribution. Note that other choices of arguments may
 #' lead to values for x and y that no longer make sense in the light of
 #' the story in Chapter 5 (i.e., where y is a percentage), but will
-#' still be OK for the statistical model in that chapter.
+#' still be OK for the statistical model introduced in that chapter.
 #'
 #' @param n The sample size
 #' @param a Value for the intercept
@@ -54,7 +54,7 @@ simDat4 <- function(n = 10, mean = 600, sd = 30){
 #'
 #' @examples
 #' str(dat <- simDat5())        # Implicit default arguments
-#' str(dat <- simDat5(b = 0))   # Stable population (this is a de-facto "model-of-the-mean")
+#' str(dat <- simDat5(b = 0))    # Stable population (this is a de-facto "model-of-the-mean")
 #' str(dat <- simDat5(b = 0.5)) # Expected increase
 #'
 #' @importFrom stats rnorm
@@ -68,7 +68,7 @@ simDat5 <- function(n = 16, a = 40, b = -0.5, sigma2 = 25){
 
 #' Simulate data for Chapter 6.2: Two groups with equal variance
 #'
-#' Simulate wingspan measurements in female and male peregrines.
+#' Simulate wingspan measurements in female and male peregrines with equal variance.
 #'
 #' @param n1 The sample size of females
 #' @param n2 The sample size of males
@@ -110,7 +110,7 @@ simDat62 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma = 2.75){
 
 #' Simulate data for Chapter 6.3: Two groups with unequal variance
 #'
-#' Simulate wingspan measurements in female and male peregrines.
+#' Simulate wingspan measurements in female and male peregrines with unequal variance..
 #'
 #' @param n1 The sample size of females
 #' @param n2 The sample size of males
@@ -162,7 +162,7 @@ simDat63 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma1 = 3, sigma2
 
 #' Simulate data for Chapter 7.2: ANOVA with fixed effects of population
 #'
-#' Simulate snout-vent length measurements of 'nSample' smooth snakes in each of 'nPops' populations
+#' Simulate snout-vent length measurements of nSample smooth snakes in each of nPops populations
 #' Data are simulated under the assumptions of a model with fixed effects of populations
 #'
 #' @param nPops Number of populations
@@ -183,6 +183,7 @@ simDat63 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma1 = 3, sigma2
 #'
 #' @examples
 #' str(dat <- simDat72())      # Implicit default arguments
+#' 
 #' # More pops, fewer snakes in each
 #' str(dat <- simDat72(nPops = 10, nSample = 5, pop.means = runif(10,20,60)))
 #' 
@@ -208,7 +209,7 @@ simDat72 <- function(nPops = 5, nSample = 10, pop.means = c(50, 40, 45, 55, 60),
 
 #' Simulate data for Chapter 7.3: ANOVA with random effects of population
 #'
-#' Simulate snout-vent length measurements of 'nSample' smooth snakes in each of 'nPops' populations
+#' Simulate snout-vent length measurements of nSample smooth snakes in each of nPops populations.
 #' Data are simulated under the assumptions of a model with random effects of populations
 #'
 #' @param nPops Number of populations
@@ -294,15 +295,15 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
 #' 
 #' # Revert to one-way ANOVA model with only effects of pop (with much larger sample size)
 #' str(dat <- simDat8(nSample = 10000, pop.eff = c(-10, -5, 5, 10),
-#'   hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
+#'     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
 #' 
 #' # Revert to one-way ANOVA model with only effects of hab
 #' str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0),
-#'   hab.eff = c(5, 10), interaction.eff = rep(0, 8)))  # note no effect of pop
+#'     hab.eff = c(5, 10), interaction.eff = rep(0, 8)))  # note no effect of pop
 #' 
 #' # Revert to "model-of-the-mean"
 #' str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0), 
-#'   hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
+#'     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
 #'
 #' @importFrom graphics abline
 #' @importFrom stats model.matrix rnorm
@@ -392,7 +393,7 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #'
 #' Simulate mass ~ length regressions in 56 populations of snakes
 #' with random population effects for intercepts and slopes.
-#' There is NO correlation between the intercept and slope random variables.
+#' There is no correlation between the intercept and slope random variables.
 #'
 #' @param nPops Number of populations
 #' @param nSample Samples from each population
@@ -430,7 +431,8 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #' # Fewer populations, more snakes (makes patterns perhaps easier to see ?)
 #' str(dat <- simDat102(nPops = 16, nSample = 100))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#'        main = 'Realized mass-length relationships\n(default random-coefficients model)', 
+#'        main = 'Realized mass-length relationships
+#'        (default random-coefficients model)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to random intercept model (and less residual variation), fewer pops 
@@ -444,21 +446,24 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #' str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, 
 #'                      mu.beta = 0, sigma.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#'        main = 'Realized mass-length relationships\n(one-way ANOVA model with random pop effects)', 
+#'        main = 'Realized mass-length relationships
+#'        (one-way ANOVA model with random pop effects)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to simple linear regression (= no effects of pop on either intercepts or slopes)
 #' str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, sigma.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#'        main = 'Realized mass-length relationships\n(de-facto a simple linear regression now)', 
+#'        main = 'Realized mass-length relationships
+#'        (de-facto a simple linear regression now)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to "model-of-the-mean": no effects of either population or body length
 #' str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, 
 #'                      sigma.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#'  main = 'Realized mass-length relationships\n("model-of-the-mean", no effects of pop or length)', 
-#'  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        main = 'Realized mass-length relationships
+#'        ("model-of-the-mean", no effects of pop or length)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #' 
 #' @importFrom lattice xyplot
 #' @importFrom stats model.matrix rnorm runif
@@ -489,7 +494,7 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #'
 #' Simulate mass ~ length regressions in 56 populations of snakes
 #' with random population effects for intercepts and slopes.
-#' NOTE that now there IS a correlation between the intercept and slope random variables.
+#' Note that now there is a correlation between the intercept and slope random variables.
 #'
 #' @param nPops Number of populations
 #' @param nSample Samples from each population
@@ -524,52 +529,56 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #' library(lattice)
 #' str(dat <- simDat105())      # Implicit default arguments
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships', pch = 16, cex = 1.2, 
-#' col = rgb(0, 0, 0, 0.4)) # This works
+#'        main = 'Realized mass-length relationships', pch = 16, cex = 1.2, 
+#'        col = rgb(0, 0, 0, 0.4)) # This works
 #' 
 #' # Fewer populations, more snakes (makes patterns perhaps easier to see)
 #' str(dat <- simDat105(nPops = 16, nSample = 100))
-#' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships (random-coef model\nintercept-slope correlation)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
+#'        main = 'Realized mass-length relationships (random-coef model
+#'        intercept-slope correlation)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #' 
 #' # Revert to simpler random-coefficient model without correlation between intercepts and slopes
 #' # (that means to set to zero the covariance term)
 #' str(dat <- simDat105(nPops = 16, nSample = 100, cov.alpha.beta = 0))
-#' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships\n(random-coefficients model without correlation)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
+#'        main = 'Realized mass-length relationships
+#'        (random-coefficients model without correlation)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to even simpler random-intercepts model without correlation between intercepts and slopes
 #' # (that means to set to zero the covariance term and the among-population variance of the slopes)
 #' # Note that sigma.beta = 0 and non-zero covariance crashes owing to non-positive-definite VC matrix
 #' str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 50, sigma.beta = 0, 
-#'                      cov.alpha.beta = 0, 
-#' sigma = 10))
+#'     cov.alpha.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships\n(random-intercepts model)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4)) # This works
+#'        main = 'Realized mass-length relationships\n(random-intercepts model)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to random-effects one-way ANOVA model, only random intercepts, but zero slopes
 #' str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 50, mu.beta = 0, sigma.beta = 0, 
-#'   cov.alpha.beta = 0, sigma = 10))
+#'     cov.alpha.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships\n(one-way ANOVA model with random pop effects)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        main = 'Realized mass-length relationships
+#'        (one-way ANOVA model with random pop effects)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to simple linear regression (= no effects of pop on either intercepts or slopes)
 #' str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 0, sigma.beta = 0, 
-#'   cov.alpha.beta = 0, sigma = 10))
+#'     cov.alpha.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships\n(this is de-facto a simple linear regression now)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        main = 'Realized mass-length relationships
+#'        (this is de-facto a simple linear regression now)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to "model-of-the-mean": no effects of either population or body length
 #' str(dat <- simDat105(nPops = 16, nSample = 100, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0,
-#'   cov.alpha.beta = 0, sigma = 10))
+#'     cov.alpha.beta = 0, sigma = 10))
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
-#' main = 'Realized mass-length relationships\n("model-of-the-mean" with no effects of pop or length)', 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        main = 'Realized mass-length relationships
+#'        ("model-of-the-mean" with no effects of pop or length)', 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #' 
 #' @importFrom lattice xyplot
 #' @importFrom MASS mvrnorm
@@ -710,7 +719,6 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
 #' # Drop zero inflation (and make sample sizes bigger)
 #' str(dat <- simDat123(nSites = 1000, psi = 0))     # Note 0 % of the sites have structural zeroes now
 #'
-#' # Drop zero inflation (and make sample sizes bigger)
 #' # Half of all sites have structural zeroes
 #' str(dat <- simDat123(nSites = 1000, psi = 0.5))
 #'
@@ -868,32 +876,33 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
 #' library(lattice)
 #' str(dat <- simDat14())
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year", pch = 16,
-#' cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-#' main = 'Realized population trends\n(random-coefficients model)') # works
+#'        cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#'        main = 'Realized population trends\n(random-coefficients model)') # works
 #'
 #' # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
 #' str(dat <- simDat14(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-#' main = 'Realized population trends (random-intercepts model)')
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#'        main = 'Realized population trends (random-intercepts model)')
 #'
 #' # Revert to random-effects one-way Poisson ANOVA model: random intercepts, but zero slopes
 #' str(dat <- simDat14(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
-#'  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-#' main = 'Realized population trends\n(random-effects, one-way Poisson ANOVA model)')
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#'        main = 'Realized population trends
+#'        (random-effects, one-way Poisson ANOVA model)')
 #'
 #' # Revert to simple log-linear Poisson regression (no effects of pop on intercepts or slopes)
 #' str(dat <- simDat14(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
-#' xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-#' main = 'Realized population trends\n(simple log-linear Poisson regression)')
+#'        xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#'        main = 'Realized population trends\n(simple log-linear Poisson regression)')
 #'
 #' # Revert to Poisson "model-of-the-mean": no effects of either population or body length
 #' str(dat <- simDat14(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
-#' xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-#' main = 'Realized population trends\n(Poisson "model-of-the-mean")')
+#'        xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+#'        main = 'Realized population trends\n(Poisson "model-of-the-mean")')
 #'
 #' @importFrom lattice xyplot
 #' @importFrom grDevices rgb
@@ -1072,37 +1081,38 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
 #' library(lattice)
 #' str(dat <- simDat17())      # Implicit default arguments (DOES NOT PRODUCE PLOT FOR SOME REASON)
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-#'    xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
-#'	col = rgb(0, 0, 0, 0.4))
+#'        xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
+#'	      col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
 #' str(dat <- simDat17(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-#'    xlab = "Spring precipitation index", 
-#'    main = "Realized breeding success (random-intercepts model)",
-#'	  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        xlab = "Spring precipitation index", 
+#'        main = "Realized breeding success (random-intercepts model)",
+#'	      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
 #' str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-#'     xlab = "Spring precipitation index",
-#' main = "Realized breeding success (random-effects,\none-way binomial ANOVA model)", 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        xlab = "Spring precipitation index",
+#'        main = "Realized breeding success (random-effects,
+#'        one-way binomial ANOVA model)", 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to simple log-linear binomial (i.e., logistic) regression
 #' #   (= no effects of pop on either intercepts or slopes)
 #' str(dat <- simDat17(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-#'    xlab = "Spring precipitation index", 
-#' main = "Realized breeding success\n(simple logistic regression model)", 
-#' pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        xlab = "Spring precipitation index", 
+#'        main = "Realized breeding success\n(simple logistic regression model)", 
+#'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' # Revert to binomial "model-of-the-mean": no effects of either population or precipitation
 #' str(dat <- simDat17(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-#'  xlab = "Spring precipitation index", 
-#'  main = "Realized breeding success (binomial 'model-of-the-mean')",
-#'	pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+#'        xlab = "Spring precipitation index", 
+#'        main = "Realized breeding success (binomial 'model-of-the-mean')",
+#'	      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
 #' @importFrom lattice xyplot
 #' @importFrom grDevices rgb
@@ -1161,9 +1171,9 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #' # Variant B: execute when you want to play with a small data set
 #' set.seed(18)
 #' trainDat <- simDat18(nSites = 50, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 10,
-#'   beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
+#'                      beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
 #' testDat <- simDat18(nSites = 50, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 10,
-#'   beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
+#'                     beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
 #' # Note how relatively different the two realizations of the SAME process are  
 #'
 #' #### Second variant of data simulation: both beta1.vec and beta2.vec are identical
@@ -1172,9 +1182,9 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #' set.seed(18)
 #' beta2.vec <- rnorm(10, 0, 0.1)
 #' trainDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
-#'   beta2.vec = beta2.vec, show.plot = TRUE)
+#'                      beta2.vec = beta2.vec, show.plot = TRUE)
 #' testDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
-#'   beta2.vec = beta2.vec, show.plot = TRUE)
+#'                     beta2.vec = beta2.vec, show.plot = TRUE)
 #' # Note how relatively different the two realizations of the SAME process are  
 #'
 #' @importFrom graphics par lines
@@ -1211,9 +1221,9 @@ simDat18 <- function(nSites = 100, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 50
 }
 
 
-#' Simulate data for Chapter 19: Site-occupancy model
+#' Simulate data for Chapter 19: Occupancy model
 #'
-#' Simulate Detection/nondetection data of Chiltern gentians
+#' Simulate detection/nondetection data of Chiltern gentians
 #'
 #' @param nSites Number of sites
 #' @param nVisits Number of replicate visits per site

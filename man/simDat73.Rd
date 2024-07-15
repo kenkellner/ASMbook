@@ -30,7 +30,7 @@ A list of simulated data and parameters.
   \item{y}{Simulated lengths}
 }
 \description{
-Simulate snout-vent length measurements of 'nSample' smooth snakes in each of 'nPops' populations
+Simulate snout-vent length measurements of nSample smooth snakes in each of nPops populations.
 Data are simulated under the assumptions of a model with random effects of populations
 }
 \examples{

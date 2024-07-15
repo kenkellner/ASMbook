@@ -48,32 +48,33 @@ Simulate count ~ year regressions in 16 populations of red-backed shrikes
 library(lattice)
 str(dat <- simDat14())
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year", pch = 16,
-cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-main = 'Realized population trends\n(random-coefficients model)') # works
+       cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+       main = 'Realized population trends\n(random-coefficients model)') # works
 
 # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
 str(dat <- simDat14(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
-pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-main = 'Realized population trends (random-intercepts model)')
+       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+       main = 'Realized population trends (random-intercepts model)')
 
 # Revert to random-effects one-way Poisson ANOVA model: random intercepts, but zero slopes
 str(dat <- simDat14(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
- pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-main = 'Realized population trends\n(random-effects, one-way Poisson ANOVA model)')
+       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+       main = 'Realized population trends
+       (random-effects, one-way Poisson ANOVA model)')
 
 # Revert to simple log-linear Poisson regression (no effects of pop on intercepts or slopes)
 str(dat <- simDat14(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
-xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-main = 'Realized population trends\n(simple log-linear Poisson regression)')
+       xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+       main = 'Realized population trends\n(simple log-linear Poisson regression)')
 
 # Revert to Poisson "model-of-the-mean": no effects of either population or body length
 str(dat <- simDat14(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
-xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
-main = 'Realized population trends\n(Poisson "model-of-the-mean")')
+       xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
+       main = 'Realized population trends\n(Poisson "model-of-the-mean")')
 
 }
 \author{

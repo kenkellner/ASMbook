@@ -1,7 +1,7 @@
 #' Fit a Poisson GLM with MCMC
 #'
 #' This is a demo function that fits a Poisson GLM with one continuous covariate
-#' to some data (y, x) using a random-walk Metropolis algorithm.
+#' to some data (y, x) using a random-walk Metropolis Markov chain Monte Carlo algorithm.
 #'
 #' @param y A vector of counts, e.g., y in the Swiss bee-eater example
 #' @param x A vector of a continuous explanatory variable, e.g. year x in the bee-eaters
@@ -32,22 +32,25 @@
 #'
 #' par(mfrow = c(1, 2), mar = c(5,5,5,2), cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
 #' plot(table(y), xlab = 'Count (y)', ylab = 'Frequency', frame = FALSE,
-#'   type = 'h', lend = 'butt', lwd = 5, col = 'gray20', main = 'Frequency distribution of counts')
+#'      type = 'h', lend = 'butt', lwd = 5, col = 'gray20', main = 'Frequency distribution of counts')
 #' plot(year, y, xlab = 'Year (x)', ylab = 'Count (y)', frame = FALSE, cex = 1.5,
-#'   pch = 16,  col = 'gray20', main = 'Relationship y ~ x')
+#'      pch = 16,  col = 'gray20', main = 'Relationship y ~ x')
 #' fm <- glm(y ~ x, family = 'poisson')        # Add Poisson GLM line of best fit
 #' lines(year, predict(fm, type = 'response'), lwd = 3, col = 'red', lty = 3)
 #'
 #' # Execute the function with default function args
+#' par(mfrow = c(1,1))
 #' str(tmp <- demoMCMC(niter=1000, nburn=200))
 #' 
 #' # Use data created above
+#' par(mfrow = c(1,1))
 #' str(tmp <- demoMCMC(y = y, x = x, niter=1000, nburn=200))
 #'
 #' # Longer run, smaller tuning param to increase acceptance
+#' par(mfrow = c(1,1))
 #' str(tmp <- demoMCMC(y=y, x=x, true.vals = c(2.5, 0.14), inits = c(0, 0),
-#'  prior.sd.alpha = 100, prior.sd.beta = 100, tuning.params = c(0.1, 0.01),
-#'  niter = 10000, nburn = 1000, quiet = FALSE, show.plots=TRUE) )
+#'     prior.sd.alpha = 100, prior.sd.beta = 100, tuning.params = c(0.1, 0.01),
+#'     niter = 10000, nburn = 1000, quiet = FALSE, show.plots=TRUE) )
 #' }
 #'
 #' @importFrom stats dpois dnorm rnorm runif sd quantile

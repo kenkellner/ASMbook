@@ -16,10 +16,11 @@ been optimized (e.g. with \code{optim})}
 \item{dig}{Number of decimal places to use in output}
 }
 \value{
-A matrix of parameter estimates and standard errors.
+A matrix of parameter estimates, standard errors, and 95% Wald-type confidence intervals.
 }
 \description{
-Summarize Output from TMB
+Summarize output from TMB by point estimate (MLE), standard error (SE),
+and 95\% Wald-type confidence intervals (CIs).
 }
 \author{
 Ken Kellner

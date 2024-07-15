@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataSimulation.R
 \name{simDat19}
 \alias{simDat19}
-\title{Simulate data for Chapter 19: Site-occupancy model}
+\title{Simulate data for Chapter 19: Occupancy model}
 \usage{
 simDat19(
   nSites = 150,
@@ -44,7 +44,7 @@ A list of simulated data and parameters.
   \item{obs_Nz}{Observed number of occupied sites}
 }
 \description{
-Simulate Detection/nondetection data of Chiltern gentians
+Simulate detection/nondetection data of Chiltern gentians
 }
 \examples{
 str(dat <- simDat19())             # Implicit default arguments

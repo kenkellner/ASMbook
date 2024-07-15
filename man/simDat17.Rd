@@ -48,37 +48,38 @@ Simulate Number of successful pairs ~ precipitation regressions in 16 population
 library(lattice)
 str(dat <- simDat17())      # Implicit default arguments (DOES NOT PRODUCE PLOT FOR SOME REASON)
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-   xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
-col = rgb(0, 0, 0, 0.4))
+       xlab = "Spring precipitation index", main = "Realized breeding success", pch = 16, cex = 1.2,
+      col = rgb(0, 0, 0, 0.4))
 
 # Revert to random intercept model. Increased sigma.alpha to emphasize the random intercepts part
 str(dat <- simDat17(nPops = 16, sigma.alpha = 1, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-   xlab = "Spring precipitation index", 
-   main = "Realized breeding success (random-intercepts model)",
-  pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+       xlab = "Spring precipitation index", 
+       main = "Realized breeding success (random-intercepts model)",
+      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
 str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-    xlab = "Spring precipitation index",
-main = "Realized breeding success (random-effects,\none-way binomial ANOVA model)", 
-pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+       xlab = "Spring precipitation index",
+       main = "Realized breeding success (random-effects,
+       one-way binomial ANOVA model)", 
+       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to simple log-linear binomial (i.e., logistic) regression
 #   (= no effects of pop on either intercepts or slopes)
 str(dat <- simDat17(nPops = 16, sigma.alpha = 0, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
-   xlab = "Spring precipitation index", 
-main = "Realized breeding success\n(simple logistic regression model)", 
-pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+       xlab = "Spring precipitation index", 
+       main = "Realized breeding success\n(simple logistic regression model)", 
+       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 # Revert to binomial "model-of-the-mean": no effects of either population or precipitation
 str(dat <- simDat17(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
- xlab = "Spring precipitation index", 
- main = "Realized breeding success (binomial 'model-of-the-mean')",
-pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+       xlab = "Spring precipitation index", 
+       main = "Realized breeding success (binomial 'model-of-the-mean')",
+      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
 }
 \author{

@@ -1,6 +1,6 @@
 Package: ASMbook
 Version: 0.1.7
-Date: 2024-07-11
+Date: 2024-07-15
 Title: Functions for the Book 'Applied Statistical Modeling for Ecologists'
 Authors@R: c(
   person("Marc", "Kéry", role="aut"),
@@ -19,4 +19,4 @@ NeedsCompilation: no
 Encoding: UTF-8
 URL: https://shop.elsevier.com/books/applied-statistical-modelling-for-ecologists/kery/978-0-443-13715-0
 BugReports: https://github.com/kenkellner/ASMbook/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

@@ -29,7 +29,7 @@ A list of simulated data and parameters.
   \item{y}{Simulated wingspan data}
 }
 \description{
-Simulate wingspan measurements in female and male peregrines.
+Simulate wingspan measurements in female and male peregrines with equal variance.
 }
 \examples{
 str(dat <- simDat62())      # Implicit default arguments

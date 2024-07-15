@@ -60,15 +60,15 @@ str(dat <- simDat8(nSample = 10000, interaction.eff = rep(0, 8))) # same, even l
 
 # Revert to one-way ANOVA model with only effects of pop (with much larger sample size)
 str(dat <- simDat8(nSample = 10000, pop.eff = c(-10, -5, 5, 10),
-  hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
+    hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
 
 # Revert to one-way ANOVA model with only effects of hab
 str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0),
-  hab.eff = c(5, 10), interaction.eff = rep(0, 8)))  # note no effect of pop
+    hab.eff = c(5, 10), interaction.eff = rep(0, 8)))  # note no effect of pop
 
 # Revert to "model-of-the-mean"
 str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0), 
-  hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
+    hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
 
 }
 \author{

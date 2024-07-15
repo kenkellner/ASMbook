@@ -26,11 +26,12 @@ A list of simulated data and parameters.
   \item{y}{Simulated lengths}
 }
 \description{
-Simulate snout-vent length measurements of 'nSample' smooth snakes in each of 'nPops' populations
+Simulate snout-vent length measurements of nSample smooth snakes in each of nPops populations
 Data are simulated under the assumptions of a model with fixed effects of populations
 }
 \examples{
 str(dat <- simDat72())      # Implicit default arguments
+
 # More pops, fewer snakes in each
 str(dat <- simDat72(nPops = 10, nSample = 5, pop.means = runif(10,20,60)))
 

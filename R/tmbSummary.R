@@ -1,10 +1,13 @@
 #' Summarize Output from TMB
 #'
+#' Summarize output from TMB by point estimate (MLE), standard error (SE),
+#' and 95\% Wald-type confidence intervals (CIs).
+#'
 #' @param tmbObject A TMB object created by \code{MakeADFun} that has
 #'  been optimized (e.g. with \code{optim})
 #' @param dig Number of decimal places to use in output
 #'
-#' @return A matrix of parameter estimates and standard errors.
+#' @return A matrix of parameter estimates, standard errors, and 95% Wald-type confidence intervals.
 #'
 #' @author Ken Kellner
 #'
