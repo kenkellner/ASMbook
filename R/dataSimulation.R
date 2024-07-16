@@ -1365,3 +1365,185 @@ simDat20 <- function(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2
   return(list(nsites1 = nsites1, nsites2 = nsites2, nsites3 = nsites3, mean.lam = mean.lam, beta = beta,
   C1 = C1, C2 = C2, C3 = C3, ztC2 = ztC2, y = y))
 }
+
+
+#' Simulate data for Chapter 19B: Binomial N-mixture Model
+#'
+#' Function simulates replicated count data as used in the bonus Chapter 19B
+#' in the ASM book. Abundance, detection and count data simulation 
+#' is undertaken for the approximate elevation of the actual sample of survey
+#' sites in the Swiss breeding bird survey "Monitoring Häufige Brutvögel" (MHB).
+#' Note there is no nSites argument, since this is given in the MHB survey at 267.
+#'
+#' @param nVisits Number of occasions, or visits per site
+#' @param alpha.lam Intercept of the regression of log expected abundance on scaled elevation
+#' @param beta1.lam Linear effect of scaled elevation on log expected abundance
+#' @param beta2.lam Quadratic effect of scaled elevation on log expected abundance
+#' @param alpha.p Intercept of the regression of logit detection on scaled elevation
+#' @param beta.p Linear effect of scaled elevation on logit detection
+#' @param show.plot Show plot of simulated output?
+#'
+#' @return A list of simulated data and parameters.
+#'   \item{nSites}{Number of sites}
+#'   \item{nVisits}{Number of visits to each site}
+#'   \item{alpha.lam}{Abundance intercept}
+#'   \item{beta1.lam}{Linear effect of elevation on abundance}
+#'   \item{beta2.lam}{Quadratic effect of elevation on abundance}
+#'   \item{alpha.p}{Detection intercept}
+#'   \item{beta.p}{Linear effect of elevation on detection}
+#'   \item{mhbElev}{Elevation covariate values}
+#'   \item{mhbElevScaled}{Scaled elevation covariate values}
+#'   \item{lambda}{Expected abundance for each site}
+#'   \item{N}{True abundance at each site}
+#'   \item{p}{Detection probability at each site}
+#'   \item{C}{Observed repeated counts at each site}
+#'   \item{nocc.true}{True number of occupied sites}
+#'   \item{nocc.app}{Apparent number of occupied sites}
+#'   \item{psi}{True proportion of occupied sites}
+#'   \item{psi.app}{Apparent proportion of occupied sites}
+#'   \item{opt.elev.true}{Optimal elevation value}
+#'   \item{totalN.true}{True total population size}
+#'   \item{totalN.app}{Apparent total population size}
+#'
+#' @author Marc Kéry
+#'
+#' @examples
+#' # With implicit default function argument values
+#' str(simDat19B())
+#'
+#' # With explicit function argument values
+#' str(simDat19B(nVisits = 3, alpha.lam = -3, beta1.lam = 8.5, beta2.lam = -3.5, 
+#'     alpha.p = 2, beta.p = -2, show.plot = TRUE))
+#'  
+#' # No plots
+#' str(simDat19B(show.plot = FALSE))
+#'
+#' # More visits
+#' str(simDat19B(nVisits = 10))
+#'
+#' # A single visit at each site
+#' str(simDat19B(nVisits = 1))
+#'
+#' # Greater abundance
+#' str(simDat19B(alpha.lam = 0))
+#'
+#' # Much rarer abundance
+#' str(simDat19B(alpha.lam = -5))
+#'
+#' # No quadratic effect of elevation on abundance (only a linear one)
+#' str(simDat19B(beta2.lam = 0))
+#'
+#' # No effect of elevation at all on abundance
+#' str(simDat19B(beta1.lam = 0, beta2.lam = 0))
+#'
+#' # Higher detection probability (intercept at 0.9)
+#' str(simDat19B(alpha.p = qlogis(0.9), beta.p = -2))
+#'
+#' # Higher detection probability (intercept at 0.9) and no effect of elevation
+#' str(simDat19B(alpha.p = qlogis(0.9), beta.p = 0))
+#'
+#' # Perfect detection (p = 1)
+#' str(simDat19B(alpha.p = 1000))
+#'
+#' # Positive effect of elevation on detection probability (and lower intercept)
+#' str(simDat19B(alpha.p = -2, beta.p = 2))
+#'
+#' @importFrom graphics par lines matplot
+#' @importFrom grDevices rgb
+#' @importFrom stats rbinom rpois
+#' @export
+simDat19B <- function (nVisits = 3, alpha.lam = -3, beta1.lam = 8.5, beta2.lam = -3.5, 
+  alpha.p = 2, beta.p = -2, show.plot = TRUE) {
+
+  # Pull out elevation data, jitter some and sort
+  mhbElev <- sort(jitter(crossbill_ele, factor = 2))
+  mhbElevScaled <- mhbElev/1000   # Create scaled version of MHB elevation covariate
+  nSites <- length(mhbElev)
+
+  # Compute expected abundance (lambda) for MHB quadrats
+  lambda <- exp(alpha.lam + beta1.lam * mhbElevScaled + beta2.lam * mhbElevScaled^2) 
+
+  # Compute state process, resulting in the realized abundance (N) for each MHB quadrat
+  N <- rpois(n = nSites, lambda = lambda)
+
+  # Compute detection probability for each survey
+  p <- plogis(alpha.p + beta.p * mhbElevScaled)
+
+  # Simulate the observation process, resulting in the counts (C) for each quadrat and visit
+  C <- array(dim = c(nSites, nVisits))
+  for(j in 1:nVisits){
+    C[,j] <- rbinom(n = nSites, size = N, prob = p)
+  }
+
+  # Some derived quantities
+  nocc.true <- sum(N > 0)               # True number of occupied sites
+  nocc.app <- sum(apply(C, 1, sum) > 0) # Apparent number of occupied sites
+  psi.true <-  nocc.true / nSites       # True proportion of occupied sites
+  psi.app <-  nocc.app/ nSites          # Apparent proportion of occupied sites
+  if(beta2.lam != 0){
+    opt.elev.true <- - beta1.lam / ( 2 * beta2.lam) # Optimal elevation for lambda (in kilometric units)
+  }
+  if(beta2.lam == 0){                   # Avoid division by zero if beta2.lam == 0
+    opt.elev.true <- NA
+  }
+  totalN.true <- sum(N)                 # True total abundance in sampled sites
+  totalN.app <- sum(apply(C, 1, max))   # Apparent total abundance in sampled sites (sum of maxima)
+
+  # Plots
+  if(show.plot){
+    ymax <- max(c(N))
+    par(mfrow = c(1, 3), mar = c(6, 6, 5, 4), cex.lab = 1.6, cex.axis = 1.6, cex.main = 2)
+    plot(mhbElev, N, main = "Bullfinch abundance", pch = 16, cex = 2,
+      col = rgb(0,0,0,0.3), frame = FALSE, xlim = c(0, 3000),
+      ylim = c(0, ymax), xlab = 'Elevation (m)', ylab = 'Abundance (N) per 1km2') 
+    lines(mhbElev, lambda, lwd = 5, col = rgb(1,0,0,0.4))
+    plot(mhbElev, p, xlab = "Elevation (m)", 
+      ylab = " Detection probability (p)", type = 'l', frame = FALSE, 
+      xlim = c(0, 3000), lwd = 7, col = rgb(1,0,0,0.3), 
+      main = "Bullfinch detectability per survey", ylim = c(0, 1))
+    matplot(mhbElev, C, ylim = c(0, ymax), xlab = "Elevation (m)", las = 1,
+      ylab = "Counts (C) per 1km2", main = "Observed bullfinch counts", pch = 16, 
+      cex = 2, col = rgb(0,0,0,0.3), frame = FALSE, xlim = c(0, 3000))
+    lines(mhbElev, lambda, type = "l", col = rgb(1,0,0,0.5), lwd = 5)
+    lines(mhbElev, lambda * p, type = "l", col = "black", lwd = 4)
+  }
+  return(list(nSites = nSites, nVisits = nVisits, alpha.lam = alpha.lam, 
+    beta1.lam = beta1.lam, beta2.lam = beta2.lam, alpha.p = alpha.p, beta.p = beta.p, 
+    mhbElev = mhbElev, mhbElevScaled = mhbElevScaled, lambda = lambda, N = N, 
+    p = p, C = C, nocc.true = nocc.true, nocc.app = nocc.app, psi.true = psi.true, 
+    psi.app = psi.app, opt.elev.true = opt.elev.true, totalN.true = totalN.true,
+    totalN.app = totalN.app))
+}
+
+# Crossbill elevation data
+#Schmid, H. N. Zbinden, and V. Keller. 2004. Uberwachung der
+#    Bestandsentwicklung haufiger Brutvogel in der Schweiz,
+#    Swiss Ornithological Institute Sempach Switzerland
+crossbill_ele <- c(450L, 450L, 1050L, 950L, 1150L, 550L, 750L, 650L, 550L, 550L,
+1150L, 750L, 1250L, 750L, 450L, 1050L, 750L, 1250L, 1250L, 350L,
+750L, 750L, 550L, 350L, 1350L, 550L, 1150L, 1450L, 950L, 650L,
+550L, 850L, 1250L, 450L, 1250L, 1150L, 750L, 550L, 450L, 1250L,
+950L, 550L, 1850L, 1950L, 1050L, 2050L, 1250L, 750L, 2250L, 1750L,
+2250L, 1150L, 1150L, 650L, 550L, 1850L, 950L, 550L, 450L, 1450L,
+850L, 1450L, 1850L, 1450L, 550L, 550L, 750L, 1750L, 650L, 950L,
+550L, 750L, 350L, 2750L, 2450L, 650L, 650L, 750L, 450L, 350L,
+250L, 1950L, 950L, 2350L, 2650L, 2450L, 1350L, 750L, 450L, 450L,
+1950L, 1550L, 1850L, 1250L, 1350L, 850L, 750L, 650L, 450L, 2350L,
+1650L, 2050L, 750L, 750L, 450L, 850L, 450L, 1050L, 1450L, 850L,
+1250L, 550L, 2750L, 2450L, 1450L, 1450L, 750L, 450L, 2050L, 2050L,
+1750L, 1650L, 1950L, 650L, 550L, 650L, 1350L, 1250L, 650L, 450L,
+1950L, 750L, 1050L, 650L, 450L, 350L, 350L, 1350L, 550L, 450L,
+450L, 2150L, 550L, 1950L, 1550L, 650L, 450L, 450L, 450L, 1850L,
+1450L, 2250L, 1850L, 450L, 450L, 750L, 2050L, 1350L, 1850L, 450L,
+850L, 650L, 650L, 1750L, 1550L, 850L, 1750L, 1250L, 1850L, 950L,
+550L, 450L, 450L, 450L, 2350L, 1850L, 1350L, 450L, 1150L, 850L,
+1950L, 1650L, 1250L, 350L, 2050L, 1850L, 2250L, 750L, 1950L,
+950L, 1650L, 2150L, 850L, 450L, 550L, 250L, 950L, 350L, 550L,
+1350L, 250L, 2050L, 1150L, 1450L, 2050L, 1950L, 1650L, 1550L,
+1350L, 1150L, 850L, 650L, 550L, 1450L, 1350L, 1250L, 850L, 550L,
+450L, 1250L, 2050L, 750L, 1850L, 1950L, 950L, 550L, 1850L, 1650L,
+1350L, 1350L, 1250L, 1850L, 1150L, 450L, 1950L, 1050L, 450L,
+2050L, 1850L, 950L, 450L, 950L, 1050L, 1950L, 1350L, 550L, 450L,
+1450L, 2250L, 1950L, 2350L, 2050L, 1150L, 2050L, 2250L, 2350L,
+2250L, 2150L, 2250L, 2350L, 1750L, 1850L, 1850L, 1850L, 2450L,
+1850L, 1850L)
