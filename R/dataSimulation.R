@@ -110,7 +110,7 @@ simDat62 <- function(n1 = 60, n2 = 40, mu1 = 105, mu2 = 77.5, sigma = 2.75){
 
 #' Simulate data for Chapter 6.3: Two groups with unequal variance
 #'
-#' Simulate wingspan measurements in female and male peregrines with unequal variance..
+#' Simulate wingspan measurements in female and male peregrines with unequal variance.
 #'
 #' @param n1 The sample size of females
 #' @param n2 The sample size of males
@@ -530,7 +530,7 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #' str(dat <- simDat105())      # Implicit default arguments
 #' xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
 #'        main = 'Realized mass-length relationships', pch = 16, cex = 1.2, 
-#'        col = rgb(0, 0, 0, 0.4)) # This works
+#'        col = rgb(0, 0, 0, 0.4))
 #' 
 #' # Fewer populations, more snakes (makes patterns perhaps easier to see)
 #' str(dat <- simDat105(nPops = 16, nSample = 100))
@@ -696,7 +696,7 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
 #' Simulate data for Chapter 12.3: Zero-inflated counts
 #'
 #' Generate counts of hares in two landuse types when there may be 
-#' zero-inflation (this is a simple general hierarchical model, see Chap 19 in the book)
+#' zero-inflation (this is a simple general hierarchical model, see Chapters 19 and 19B in the book)
 #'
 #' @param nSites Number of sites
 #' @param alpha Intercept

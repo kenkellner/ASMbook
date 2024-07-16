@@ -5,7 +5,7 @@
 #'
 #' @param y A vector of counts, e.g., y in the Swiss bee-eater example
 #' @param x A vector of a continuous explanatory variable, e.g. year x in the bee-eaters
-#' @param true.vals True intercept and slope if known (i.e., when run in simulated data)
+#' @param true.vals True intercept and slope if known (i.e., when run on simulated data)
 #' @param inits Initial values in the MCMC algorithm for alpha, beta
 #' @param prior.sd.alpha SD of normal prior for alpha
 #' @param prior.sd.beta SD of normal prior for beta

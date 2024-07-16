@@ -13,7 +13,7 @@ Imports:
     stats,
     TMB
 Suggests: roxygen2
-Description: Provides functions to accompany the publication 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner (2024, ISBN: 9780443137150).
+Description: Provides functions to accompany the book 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner (2024, ISBN: 9780443137150).
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8

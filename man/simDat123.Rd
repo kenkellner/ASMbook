@@ -26,7 +26,7 @@ A list of simulated data and parameters.
 }
 \description{
 Generate counts of hares in two landuse types when there may be 
-zero-inflation (this is a simple general hierarchical model, see Chap 19 in the book)
+zero-inflation (this is a simple general hierarchical model, see Chapters 19 and 19B in the book)
 }
 \examples{
 str(dat <- simDat123())      # Implicit default arguments

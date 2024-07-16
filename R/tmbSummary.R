@@ -7,7 +7,7 @@
 #'  been optimized (e.g. with \code{optim})
 #' @param dig Number of decimal places to use in output
 #'
-#' @return A matrix of parameter estimates, standard errors, and 95% Wald-type confidence intervals.
+#' @return A matrix of parameter estimates, standard errors, and 95\% Wald-type confidence intervals.
 #'
 #' @author Ken Kellner
 #'

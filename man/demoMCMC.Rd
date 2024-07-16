@@ -23,7 +23,7 @@ demoMCMC(
 
 \item{x}{A vector of a continuous explanatory variable, e.g. year x in the bee-eaters}
 
-\item{true.vals}{True intercept and slope if known (i.e., when run in simulated data)}
+\item{true.vals}{True intercept and slope if known (i.e., when run on simulated data)}
 
 \item{inits}{Initial values in the MCMC algorithm for alpha, beta}
 

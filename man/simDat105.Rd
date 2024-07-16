@@ -61,7 +61,7 @@ library(lattice)
 str(dat <- simDat105())      # Implicit default arguments
 xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass', 
        main = 'Realized mass-length relationships', pch = 16, cex = 1.2, 
-       col = rgb(0, 0, 0, 0.4)) # This works
+       col = rgb(0, 0, 0, 0.4))
 
 # Fewer populations, more snakes (makes patterns perhaps easier to see)
 str(dat <- simDat105(nPops = 16, nSample = 100))
