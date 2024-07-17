@@ -58,6 +58,7 @@ xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike bree
        main = "Realized breeding success (random-intercepts model)",
       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
+\dontrun{
 # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
 str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
@@ -80,6 +81,7 @@ xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike bree
        xlab = "Spring precipitation index", 
        main = "Realized breeding success (binomial 'model-of-the-mean')",
       pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+}
 
 }
 \author{

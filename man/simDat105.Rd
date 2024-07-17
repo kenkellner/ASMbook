@@ -70,6 +70,7 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
        intercept-slope correlation)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
+\dontrun{ 
 # Revert to simpler random-coefficient model without correlation between intercepts and slopes
 # (that means to set to zero the covariance term)
 str(dat <- simDat105(nPops = 16, nSample = 100, cov.alpha.beta = 0))
@@ -110,6 +111,7 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
        main = 'Realized mass-length relationships
        ("model-of-the-mean" with no effects of pop or length)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+}
 
 }
 \author{

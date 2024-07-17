@@ -57,6 +57,7 @@ xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
        main = 'Realized population trends (random-intercepts model)')
 
+\dontrun{
 # Revert to random-effects one-way Poisson ANOVA model: random intercepts, but zero slopes
 str(dat <- simDat14(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
@@ -75,6 +76,7 @@ str(dat <- simDat14(nPops = 16, sigma.alpha = 0, mu.beta = 0, sigma.beta = 0))
 xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
        xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
        main = 'Realized population trends\n(Poisson "model-of-the-mean")')
+}
 
 }
 \author{

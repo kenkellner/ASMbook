@@ -41,6 +41,7 @@ str(dat <- simDat9())
 # Revert to main-effects model with parallel lines
 str(dat <- simDat9(beta.vec = c(80, -30, -20, 6, 0, 0)))
 
+\dontrun{
 # Revert to main-effects model with parallel lines 
 # (larger sample size to better show patterns)
 str(dat <- simDat9(nSample = 100, beta.vec = c(80, -30, -20, 6, 0, 0)))
@@ -55,6 +56,7 @@ str(dat <- simDat9(nSample = 100, beta.vec = c(80, -30, -20, 0, 0, 0)))
 
 # Revert to "model-of-the-mean": no effects of either body length or population)
 str(dat <- simDat9(nSample = 100, beta.vec = c(80, 0, 0, 0, 0, 0)))
+}
 
 }
 \author{

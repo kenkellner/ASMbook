@@ -65,6 +65,7 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
        (default random-coefficients model)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 
+\dontrun{
 # Revert to random intercept model (and less residual variation), fewer pops 
 # and more snakes. Increased sigma.alpha to emphasize the random intercepts part
 str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, sigma.beta = 0, sigma = 10))
@@ -94,6 +95,7 @@ xyplot(dat$mass ~ dat$lengthN | dat$pop, xlab = 'Length', ylab = 'Mass',
        main = 'Realized mass-length relationships
        ("model-of-the-mean", no effects of pop or length)', 
        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
+}
 
 }
 \author{

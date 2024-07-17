@@ -34,6 +34,7 @@ str(dat <- simDat123())      # Implicit default arguments
 # Drop zero inflation (and make sample sizes bigger)
 str(dat <- simDat123(nSites = 1000, psi = 0))     # Note 0 \% of the sites have structural zeroes now
 
+\dontrun{
 # Half of all sites have structural zeroes
 str(dat <- simDat123(nSites = 1000, psi = 0.5))
 
@@ -44,6 +45,7 @@ str(dat <- simDat123(nSites = 1000, beta = 0, psi = 0))
 # Revert to "model-of-the-mean" with zero inflation
 # 50 \% of the sites have structural zeroes
 str(dat <- simDat123(nSites = 1000, beta = 0, psi = 0.5))
+}
 
 }
 \author{
