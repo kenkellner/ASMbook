@@ -201,6 +201,8 @@ simDat72 <- function(nPops = 5, nSample = 10, pop.means = c(50, 40, 45, 55, 60),
   means <- rep(pop.means, rep(nSample, nPops))
   X <- as.matrix(model.matrix(~ pop-1))      # Create design matrix
   y <- as.numeric(X %*% as.matrix(pop.means) + eps) # %*% denotes matrix multiplication
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mar = c(6,6,6,3), cex.lab = 1.5, cex.axis = 1.5, cex.main = 2)
   boxplot(y ~ pop, col = "grey", xlab = "Population", ylab = "SVL", main = "", las = 1, frame = FALSE)
   return(list(nPops = nPops, nSample = nSample, pop.means = pop.means, sigma = sigma, 
@@ -249,6 +251,8 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
   eps <- rnorm(n, 0, sigma)                  # Residuals 
   X <- as.matrix(model.matrix(~ pop-1))      # Create design matrix
   y <- as.numeric(X %*% as.matrix(pop.means) + eps) # %*% denotes matrix multiplication
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mar = c(6,6,6,3), cex.lab = 1.5, cex.axis = 1.5, cex.main = 2)
   boxplot(y ~ pop, col = "grey", xlab = "Population", ylab = "SVL", main = "", las = 1, frame = FALSE)
   abline(h = pop.grand.mean)
@@ -293,7 +297,6 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
 #' str(dat <- simDat8(nSample = 1000, interaction.eff = c(0,0,0,0, 0,0,0,0)))
 #' str(dat <- simDat8(nSample = 10000, interaction.eff = rep(0, 8))) # same, even larger sample size
 #'
-#' \dontrun{
 #' # Revert to one-way ANOVA model with only effects of pop (with much larger sample size)
 #' str(dat <- simDat8(nSample = 10000, pop.eff = c(-10, -5, 5, 10),
 #'     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
@@ -305,7 +308,6 @@ simDat73 <- function(nPops = 10, nSample = 12, pop.grand.mean = 50, pop.sd = 3, 
 #' # Revert to "model-of-the-mean"
 #' str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0), 
 #'     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
-#' }
 #'
 #' @importFrom graphics abline
 #' @importFrom stats model.matrix rnorm
@@ -355,7 +357,6 @@ simDat8 <- function(nPops = 5, nHab = 3, nSample = 12, baseline = 40, pop.eff = 
 #' # Revert to main-effects model with parallel lines
 #' str(dat <- simDat9(beta.vec = c(80, -30, -20, 6, 0, 0)))
 #'
-#' \dontrun{
 #' # Revert to main-effects model with parallel lines 
 #' # (larger sample size to better show patterns)
 #' str(dat <- simDat9(nSample = 100, beta.vec = c(80, -30, -20, 6, 0, 0)))
@@ -370,7 +371,6 @@ simDat8 <- function(nPops = 5, nHab = 3, nSample = 12, baseline = 40, pop.eff = 
 #'
 #' # Revert to "model-of-the-mean": no effects of either body length or population)
 #' str(dat <- simDat9(nSample = 100, beta.vec = c(80, 0, 0, 0, 0, 0)))
-#' }
 #'
 #' @importFrom graphics matplot par
 #' @importFrom stats model.matrix rnorm runif
@@ -383,6 +383,8 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
   lengthC <- length-mean(length) # Same centered
   Xmat <- model.matrix(~ pop * lengthC)
   mass <- as.numeric(Xmat[,] %*% beta.vec + rnorm(n = n, mean = 0, sd = sigma))
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mar = c(5,5,4,2), cex.lab = 1.5, cex.axis = 1.5)
   matplot(cbind(length[1:nSample], length[(nSample+1):(2*nSample)], length[(2*nSample+1):(3*nSample)]),
     cbind(mass[1:nSample], mass[(nSample+1):(2*nSample)], mass[(2*nSample+1):(3*nSample)]),
@@ -439,7 +441,6 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #'        (default random-coefficients model)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
-#' \dontrun{
 #' # Revert to random intercept model (and less residual variation), fewer pops 
 #' # and more snakes. Increased sigma.alpha to emphasize the random intercepts part
 #' str(dat <- simDat102(nPops = 16, nSample = 100, sigma.alpha = 50, sigma.beta = 0, sigma = 10))
@@ -469,7 +470,6 @@ simDat9 <- function(nPops = 3, nSample = 10, beta.vec = c(80, -30, -20, 6, -3, -
 #'        main = 'Realized mass-length relationships
 #'        ("model-of-the-mean", no effects of pop or length)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
-#' }
 #' 
 #' @importFrom lattice xyplot
 #' @importFrom stats model.matrix rnorm runif
@@ -545,7 +545,6 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #'        intercept-slope correlation)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #' 
-#' \dontrun{ 
 #' # Revert to simpler random-coefficient model without correlation between intercepts and slopes
 #' # (that means to set to zero the covariance term)
 #' str(dat <- simDat105(nPops = 16, nSample = 100, cov.alpha.beta = 0))
@@ -586,7 +585,6 @@ simDat102 <- function(nPops = 56, nSample = 10, mu.alpha = 260, sigma.alpha = 20
 #'        main = 'Realized mass-length relationships
 #'        ("model-of-the-mean" with no effects of pop or length)', 
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
-#' }
 #'
 #' @importFrom lattice xyplot
 #' @importFrom MASS mvrnorm
@@ -693,6 +691,8 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
   lambda.Poisson <- exp(alpha + beta*(as.numeric(x)-1))
   C_OD <- rpois(n = n, lambda = lambda.OD)           # Counts with OD
   C_Poisson <- rpois(n = n, lambda = lambda.Poisson) # Counts without OD
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mfrow = c(1,2))
   boxplot(C_OD ~ x, col = "grey", xlab = "Land-use", main = "With overdispersion", ylab = "Hare count", las = 1, ylim = c(0, max(C_OD)), frame = FALSE)
   boxplot(C_Poisson ~ x, col = "grey", xlab = "Land-use", main = "Without overdispersion", ylab = "Hare count", las = 1, ylim = c(0, max(C_OD)) , frame = FALSE )
@@ -727,7 +727,6 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
 #' # Drop zero inflation (and make sample sizes bigger)
 #' str(dat <- simDat123(nSites = 1000, psi = 0))     # Note 0 % of the sites have structural zeroes now
 #'
-#' \dontrun{
 #' # Half of all sites have structural zeroes
 #' str(dat <- simDat123(nSites = 1000, psi = 0.5))
 #'
@@ -738,7 +737,6 @@ simDat122 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2), sd = 0.
 #' # Revert to "model-of-the-mean" with zero inflation
 #' # 50 % of the sites have structural zeroes
 #' str(dat <- simDat123(nSites = 1000, beta = 0, psi = 0.5))
-#' }
 #'
 #' @importFrom graphics boxplot
 #' @importFrom stats rpois rbinom
@@ -821,7 +819,6 @@ simDat124 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2)){
 #' # Same with less strong regression coefficient
 #' str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 1, 2, 3, 0, 0)))
 #'
-#' \dontrun{
 #' # Revert to simple linear Poisson regression: no effect of population (and less strong coefficient)
 #' str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 0, 0, 3, 0, 0)))
 #'
@@ -833,7 +830,6 @@ simDat124 <- function(nSites = 50, alpha = log(2), beta = log(5)-log(2)){
 #' # Intercept chosen such that average parasite load is 10
 #' str(dat <- simDat13(nSample = 100, beta.vec = c(log(10), 0, 0, 0, 0, 0)))
 #' mean(dat$load)        # Average is about 10
-#' }
 #'
 #' @importFrom graphics par
 #' @importFrom stats model.matrix runif rpois
@@ -848,6 +844,8 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
   lin.pred <- Xmat[,] %*% beta.vec
   lambda <- exp(lin.pred)
   load <- rpois(n = n, lambda = lambda)
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mar = c(5,5,4,3), cex.axis = 1.5, cex.lab = 1.5)
   plot(wing.length, load, pch = rep(c("P", "M", "J"), each=nSample), las = 1,
     col = rep(c("Red", "Green", "Blue"), each=nSample), ylab = "Parasite load",
@@ -897,7 +895,6 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
 #'        pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
 #'        main = 'Realized population trends (random-intercepts model)')
 #'
-#' \dontrun{
 #' # Revert to random-effects one-way Poisson ANOVA model: random intercepts, but zero slopes
 #' str(dat <- simDat14(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", xlab = "Year",
@@ -916,7 +913,6 @@ simDat13 <- function(nPops = 3, nSample = 100, beta.vec = c(-2, 1, 2, 4, -2, -5)
 #' xyplot(dat$C ~ dat$orig.year | dat$pop, ylab = "Red-backed shrike counts", 
 #'        xlab = "Year", pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4), 
 #'        main = 'Realized population trends\n(Poisson "model-of-the-mean")')
-#' }
 #'
 #' @importFrom lattice xyplot
 #' @importFrom grDevices rgb
@@ -1018,7 +1014,6 @@ simDat15 <- function(N = 50, theta.cr = 12/50, theta.ch = 38/50){
 #' # (also larger sample size to better see patterns)
 #' str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 6, 0, 0)))
 #'
-#' \dontrun{
 #' # Same with less strong logistic regression coefficient
 #' str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 3, 0, 0)))
 #'
@@ -1033,7 +1028,6 @@ simDat15 <- function(N = 50, theta.cr = 12/50, theta.ch = 38/50){
 #' # Intercept chosen such that average proportion of black adders is 0.6
 #' str(dat <- simDat16(nSite = 100, beta.vec = c(qlogis(0.6), 0, 0, 0, 0, 0)))
 #' mean(dat$C / dat$N)        # Average is about 0.6
-#' }
 #'
 #' @importFrom graphics par matplot
 #' @importFrom stats model.matrix runif rbinom
@@ -1051,6 +1045,8 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
   lin.pred <- Xmat[,] %*% beta.vec
   exp.p <- exp(lin.pred) / (1 + exp(lin.pred)) # plogis(lin.pred) is same
   C <- rbinom(n = n, size = N, prob = exp.p)
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mfrow = c(1,2), mar = c(5,5,3,1))
   matplot(cbind(wetness[1:nSite], wetness[(nSite+1):(2*nSite)], wetness[(2*nSite+1):(3*nSite)]),
     cbind(exp.p[1:nSite], exp.p[(nSite+1):(2*nSite)], exp.p[(2*nSite+1):(3*nSite)]),
@@ -1107,7 +1103,6 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
 #'        main = "Realized breeding success (random-intercepts model)",
 #'	      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
 #'
-#' \dontrun{
 #' # Revert to random-effects one-way binomial ANOVA model: random intercepts, but zero slopes
 #' str(dat <- simDat17(nPops = 16, sigma.alpha = 1, mu.beta = 0, sigma.beta = 0))
 #' xyplot(dat$C/dat$N ~ dat$precip | dat$pop, ylab = "Realized woodchat shrike breeding success ", 
@@ -1194,7 +1189,6 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #'                     beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
 #' # Note how relatively different the two realizations of the SAME process are  
 #' 
-#' \dontrun{
 #' #### Second variant of data simulation: both beta1.vec and beta2.vec are identical
 #'
 #' # Variant B: execute when you want to play with a small data set
@@ -1205,7 +1199,6 @@ simDat17 <- function(nPops = 16, nYears = 10, mu.alpha = 0, mu.beta = -2, sigma.
 #' testDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
 #'                     beta2.vec = beta2.vec, show.plot = TRUE)
 #' # Note how relatively different the two realizations of the SAME process are
-#' }
 #'
 #' @importFrom graphics par lines
 #' @importFrom grDevices rgb
@@ -1224,6 +1217,8 @@ simDat18 <- function(nSites = 100, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 50
   lambda <- exp(lin.pred)
   C <- rpois(n = nSites, lambda = lambda)
   if(show.plot){
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow = c(1, 3), mar = c(5,5,4,3), cex.axis = 1.5, cex.lab = 1.5)
     plot(rock, C, pch = 16, las = 1, col = rgb(0, 0, 0, 0.3), ylab = "Count",
 	  xlab = "Rock cover", cex = 1.5, frame = FALSE)
@@ -1275,15 +1270,12 @@ simDat18 <- function(nSites = 100, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 50
 #' str(dat <- simDat19(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2,
 #'   alpha.p = 0, beta.p = -3))       # Explicit default arguments
 #' str(dat <- simDat19(nSites = 500)) # More sites
-#' 
-#' \dontrun{
 #' str(dat <- simDat19(nVisits = 1))  # Single-visit data
 #' str(dat <- simDat19(nVisits = 20)) # 20 visits, will yield cumulative detection prob of about 1
 #' str(dat <- simDat19(alpha.occ = 2))# Much higher occupancy
 #' str(dat <- simDat19(beta.occ = 0)) # No effect of humidity on occupancy
 #' str(dat <- simDat19(beta.p = 3))   # Positive effect of humidity on detection
 #' str(dat <- simDat19(beta.p = 0))   # No effect of humidity on detection
-#' }
 #'
 #' @importFrom lattice xyplot
 #' @importFrom graphics par polygon
@@ -1311,6 +1303,8 @@ simDat19 <- function(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2, alp
   LCL.naive <- plogis(lpred.naive$fit-2*lpred.naive$se)
   UCL.naive <- plogis(lpred.naive$fit+2*lpred.naive$se)
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mfrow = c(1, 3), mar = c(6,6,5,4), cex.lab = 1.6, cex.axis = 1.6, cex.main = 2)
   plot(humidity, occ.prob, ylim = c(0,1), xlab = "Humidity index", ylab = "Occupancy probability", main = "State process", las = 1, pch = 16, cex = 2, col = rgb(0,0,0,0.3), frame = FALSE)
   plot(humidity, p, ylim = c(0,1), xlab = "Humidity index", ylab = "Detection probability", main = "Observation process", las = 1, pch = 16, cex = 2, col = rgb(0,0,0,0.3), frame = FALSE)
@@ -1376,6 +1370,8 @@ simDat20 <- function(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2
   y <- C3                 # Make a copy
   y[y > 1] <- 1           # Squash to binary
   # Plot counts/DND data in all data sets (Fig. 20–3)
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   par(mfrow = c(1, 2), mar = c(5, 5, 4, 1), cex = 1.2, cex.lab = 1.5, cex.axis = 1.5, las = 1)
   plot(elev2[C2>0], jitter(ztC2), pch = 16, xlab = 'Elevation (m)', ylab = 'Counts', frame = FALSE, ylim = range(c(C1, ztC2)), col = adjustcolor('grey80', 1), main = 'Data sets 1 and 2')
   points(elev1, jitter(C1), pch = 16)
@@ -1438,7 +1434,6 @@ simDat20 <- function(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2
 #' str(simDat19B(nVisits = 3, alpha.lam = -3, beta1.lam = 8.5, beta2.lam = -3.5, 
 #'     alpha.p = 2, beta.p = -2, show.plot = TRUE))
 #' 
-#' \dontrun{
 #' # No plots
 #' str(simDat19B(show.plot = FALSE))
 #'
@@ -1471,7 +1466,6 @@ simDat20 <- function(nsites1 = 500, nsites2 = 1000, nsites3 = 2000, mean.lam = 2
 #'
 #' # Positive effect of elevation on detection probability (and lower intercept)
 #' str(simDat19B(alpha.p = -2, beta.p = 2))
-#' }
 #'
 #' @importFrom graphics par lines matplot
 #' @importFrom grDevices rgb
@@ -1517,6 +1511,8 @@ simDat19B <- function (nVisits = 3, alpha.lam = -3, beta1.lam = 8.5, beta2.lam =
   # Plots
   if(show.plot){
     ymax <- max(c(N))
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow = c(1, 3), mar = c(6, 6, 5, 4), cex.lab = 1.6, cex.axis = 1.6, cex.main = 2)
     plot(mhbElev, N, main = "Bullfinch abundance", pch = 16, cex = 2,
       col = rgb(0,0,0,0.3), frame = FALSE, xlim = c(0, 3000),

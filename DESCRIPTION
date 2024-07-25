@@ -1,6 +1,6 @@
 Package: ASMbook
-Version: 1.0.0
-Date: 2024-07-16
+Version: 1.0.1
+Date: 2024-07-25
 Title: Functions for the Book 'Applied Statistical Modeling for Ecologists'
 Authors@R: c(
   person("Marc", "Kéry", role="aut"),
@@ -13,7 +13,7 @@ Imports:
     stats,
     TMB
 Suggests: roxygen2
-Description: Provides functions to accompany the book 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner (2024, ISBN: 9780443137150).
+Description: Provides functions to accompany the book 'Applied Statistical Modeling for Ecologists' by Marc Kéry and Kenneth F. Kellner (2024, ISBN: 9780443137150). Included are functions for simulating and customizing the datasets used for the example models in each chapter, summarizing output from model fitting engines, and running custom Markov Chain Monte Carlo.
 License: GPL-3
 NeedsCompilation: no
 Encoding: UTF-8
