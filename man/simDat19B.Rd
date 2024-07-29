@@ -67,7 +67,6 @@ str(simDat19B())
 str(simDat19B(nVisits = 3, alpha.lam = -3, beta1.lam = 8.5, beta2.lam = -3.5, 
     alpha.p = 2, beta.p = -2, show.plot = TRUE))
 
-\dontrun{
 # No plots
 str(simDat19B(show.plot = FALSE))
 
@@ -100,7 +99,6 @@ str(simDat19B(alpha.p = 1000))
 
 # Positive effect of elevation on detection probability (and lower intercept)
 str(simDat19B(alpha.p = -2, beta.p = 2))
-}
 
 }
 \author{

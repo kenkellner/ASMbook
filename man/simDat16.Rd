@@ -34,7 +34,6 @@ str(dat <- simDat16())      # Implicit default arguments
 # (also larger sample size to better see patterns)
 str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 6, 0, 0)))
 
-\dontrun{
 # Same with less strong logistic regression coefficient
 str(dat <- simDat16(nSite = 100, beta.vec = c(-4, 1, 2, 3, 0, 0)))
 
@@ -49,7 +48,6 @@ str(dat <- simDat16(nSite = 100, beta.vec = c(-2, 2, 3, 0, 0, 0)))
 # Intercept chosen such that average proportion of black adders is 0.6
 str(dat <- simDat16(nSite = 100, beta.vec = c(qlogis(0.6), 0, 0, 0, 0, 0)))
 mean(dat$C / dat$N)        # Average is about 0.6
-}
 
 }
 \author{

@@ -36,7 +36,6 @@ str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 1, 2, 4, 0, 0)))
 # Same with less strong regression coefficient
 str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 1, 2, 3, 0, 0)))
 
-\dontrun{
 # Revert to simple linear Poisson regression: no effect of population (and less strong coefficient)
 str(dat <- simDat13(nSample = 100, beta.vec = c(-2, 0, 0, 3, 0, 0)))
 
@@ -48,7 +47,6 @@ str(dat <- simDat13(nSample = 100, beta.vec = c(-1, 3, 5, 0, 0, 0)))
 # Intercept chosen such that average parasite load is 10
 str(dat <- simDat13(nSample = 100, beta.vec = c(log(10), 0, 0, 0, 0, 0)))
 mean(dat$load)        # Average is about 10
-}
 
 }
 \author{

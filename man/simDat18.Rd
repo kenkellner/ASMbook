@@ -53,7 +53,6 @@ testDat <- simDat18(nSites = 50, beta1.vec = c(1, 0.2, 0.5, 1, -1), ncov2 = 10,
                     beta2.vec = rnorm(10, 0, 0.1), show.plot = TRUE)
 # Note how relatively different the two realizations of the SAME process are  
 
-\dontrun{
 #### Second variant of data simulation: both beta1.vec and beta2.vec are identical
 
 # Variant B: execute when you want to play with a small data set
@@ -64,7 +63,6 @@ trainDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
 testDat <- simDat18(nSites = 50, beta1.vec = c(2, 0.2, 0.5, 1, -1), ncov2 = 10,
                     beta2.vec = beta2.vec, show.plot = TRUE)
 # Note how relatively different the two realizations of the SAME process are
-}
 
 }
 \author{

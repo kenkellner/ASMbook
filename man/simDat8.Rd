@@ -58,7 +58,6 @@ str(dat <- simDat8())      # Implicit default arguments (for the model with inte
 str(dat <- simDat8(nSample = 1000, interaction.eff = c(0,0,0,0, 0,0,0,0)))
 str(dat <- simDat8(nSample = 10000, interaction.eff = rep(0, 8))) # same, even larger sample size
 
-\dontrun{
 # Revert to one-way ANOVA model with only effects of pop (with much larger sample size)
 str(dat <- simDat8(nSample = 10000, pop.eff = c(-10, -5, 5, 10),
     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of habitat
@@ -70,7 +69,6 @@ str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0),
 # Revert to "model-of-the-mean"
 str(dat <- simDat8(nSample = 10000, pop.eff = c(0, 0, 0, 0), 
     hab.eff = c(0, 0), interaction.eff = rep(0, 8)))  # note no effect of pop nor of h
-}
 
 }
 \author{

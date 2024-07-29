@@ -51,15 +51,12 @@ str(dat <- simDat19())             # Implicit default arguments
 str(dat <- simDat19(nSites = 150, nVisits = 3, alpha.occ = 0, beta.occ = 2,
   alpha.p = 0, beta.p = -3))       # Explicit default arguments
 str(dat <- simDat19(nSites = 500)) # More sites
-
-\dontrun{
 str(dat <- simDat19(nVisits = 1))  # Single-visit data
 str(dat <- simDat19(nVisits = 20)) # 20 visits, will yield cumulative detection prob of about 1
 str(dat <- simDat19(alpha.occ = 2))# Much higher occupancy
 str(dat <- simDat19(beta.occ = 0)) # No effect of humidity on occupancy
 str(dat <- simDat19(beta.p = 3))   # Positive effect of humidity on detection
 str(dat <- simDat19(beta.p = 0))   # No effect of humidity on detection
-}
 
 }
 \author{

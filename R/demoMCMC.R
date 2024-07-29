@@ -40,18 +40,14 @@
 #'
 #' \donttest{
 #' # Execute the function with default function args
+#' # In a real test you should run more iterations
 #' par(mfrow = c(1,1))
-#' str(tmp <- demoMCMC(niter=1000, nburn=200))
+#' str(tmp <- demoMCMC(niter=100, nburn=50))
 #' 
 #' # Use data created above
 #' par(mfrow = c(1,1))
-#' str(tmp <- demoMCMC(y = y, x = x, niter=1000, nburn=200))
+#' str(tmp <- demoMCMC(y = y, x = x, niter=100, nburn=50))
 #'
-#' # Longer run, smaller tuning param to increase acceptance
-#' par(mfrow = c(1,1))
-#' str(tmp <- demoMCMC(y=y, x=x, true.vals = c(2.5, 0.14), inits = c(0, 0),
-#'     prior.sd.alpha = 100, prior.sd.beta = 100, tuning.params = c(0.1, 0.01),
-#'     niter = 10000, nburn = 1000, quiet = FALSE, show.plots=TRUE) )
 #' }
 #' par(oldpar)
 #'

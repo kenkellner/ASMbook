@@ -1125,7 +1125,6 @@ simDat16 <- function(nRegion = 3, nSite = 10, beta.vec = c(-4, 1, 2, 6, 2, -5)){
 #'        xlab = "Spring precipitation index", 
 #'        main = "Realized breeding success (binomial 'model-of-the-mean')",
 #'	      pch = 16, cex = 1.2, col = rgb(0, 0, 0, 0.4))
-#' }
 #'
 #' @importFrom lattice xyplot
 #' @importFrom grDevices rgb
