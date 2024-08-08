@@ -190,14 +190,15 @@ demoMCMC <- function(y, x,
   abline(h = true.vals[1], lwd = 2, lty = 3, col = 'red')
   plot((nburn+1):niter, out[(nburn+1):niter,2], main = 'beta (post-burnin)', xlab = "MC iteration", ylab = 'Posterior draw', type = 'l')
   abline(h = true.vals[2], lwd = 2, lty = 3, col = 'red')
-  
-  # Also print out the posterior mean, sd and 95% CRI (post-burnin)
+ }
+
+  # Print out the posterior mean, sd and 95% CRI (post-burnin)
   tmp.tab <- array(NA, dim = c(2, 4), dimnames = list(c('alpha', 'beta'), c('Post.mean', 'Post.sd', '2.5%', '97.5%'))) 
   tmp.tab[,1] <- round(pmeans, 4)
   tmp.tab[,2] <- round(psds, 4)
   tmp.tab[,3:4] <- CRIs
   tmp.tab 
- }
+
  if (!quiet) {
    message("\nAcceptance prob. (post-burnin) for alpha: ", round(acc.prob1, 2))
    message("Acceptance prob. (post-burnin) for beta: ", round(acc.prob2, 2))
